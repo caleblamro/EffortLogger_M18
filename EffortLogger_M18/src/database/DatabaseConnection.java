@@ -3,8 +3,6 @@ package database;
 import java.sql.*;
 import java.util.ArrayList;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import entities.Employee;
 import entities.Log;
 import entities.Org;
@@ -21,9 +19,9 @@ public class DatabaseConnection {
     private String password;
 
     public DatabaseConnection() {
-        this.url = "database-1.c7qrin1yhkuw.us-east-2.rds.amazonaws.com";
-        this.username = "admin";
-        this.password = "effortloggerm18";
+        this.url = System.getenv("URL");
+        this.username = System.getenv("USERNAME");
+        this.password = System.getenv("PASSWORD");
     }
 
     public void connect() throws SQLException, ClassNotFoundException {
