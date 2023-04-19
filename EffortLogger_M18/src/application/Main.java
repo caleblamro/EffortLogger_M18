@@ -31,6 +31,8 @@ public class Main extends Application {
 	public static DatabaseConnection c;
 	public static Employee current_user = null;
 	private static Stage primaryStage;
+	private static int WIDTH = 750;
+	private static int HEIGHT = 550;
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -59,7 +61,7 @@ public class Main extends Application {
 			e.printStackTrace();
 		}
 			
-		Scene scene = new Scene(root, 750,550);
+		Scene scene = new Scene(root, WIDTH, HEIGHT);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		primaryStage.setTitle("Effort Logger");
 		primaryStage.setOnCloseRequest(e -> {
@@ -85,7 +87,7 @@ public class Main extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Scene scene = new Scene(signup, 750,550);
+		Scene scene = new Scene(signup, WIDTH, HEIGHT);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		primaryStage.setScene(scene);
 	}
@@ -97,7 +99,7 @@ public class Main extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Scene scene = new Scene(signup, 750,550);
+		Scene scene = new Scene(signup, WIDTH, HEIGHT);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		primaryStage.setScene(scene);
 	}
