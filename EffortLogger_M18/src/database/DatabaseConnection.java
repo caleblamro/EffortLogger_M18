@@ -1,5 +1,6 @@
 package database;
 
+import java.io.IOException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,6 +20,11 @@ import exceptions.OrgExistsException;
 import exceptions.OrgNotFoundException;
 import exceptions.UserNotFoundException;
 import exceptions.UsernameTakenException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * 
@@ -277,12 +283,13 @@ public class DatabaseConnection {
     	PreparedStatement create_org = connection.prepareStatement("INSERT INTO orgs (name, description, code) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
     	create_org.setString(1, name);
     	create_org.setString(2, description);
-    	create_org.setString(2, hashed_code);
+    	create_org.setString(3, hashed_code);
     	int rows_affected = create_org.executeUpdate();
     	int id = -1;
     	if(rows_affected == 1) {
     		ResultSet generated_keys = create_org.getGeneratedKeys();
-    		id = generated_keys.getInt("id");
+    		if(!generated_keys.next()) throw new SQLException();
+    		id = generated_keys.getInt(1);
     		return new Org(id, name, description, -1);
     	}
     	throw new SQLException();

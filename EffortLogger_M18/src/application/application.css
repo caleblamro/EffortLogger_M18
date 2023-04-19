@@ -9,3 +9,61 @@
     -fx-border-color: #b5b5b5;
     -fx-text-fill: #b5b5b5;
 }
+.combo-box {
+    -fx-background-color: #333333;
+    -fx-border-color: #333333;
+    -fx-text-fill: white;
+}
+
+.combo-box .arrow {
+    -fx-background-color: white;
+    -fx-shape: "M 0 0 L 5 5 L 10 0 Z";
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 2px 0;
+    -fx-border-color: #b5b5b5;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #333333;
+    -fx-text-fill: white;
+}
+
+.combo-box .list-cell:filled:selected,
+.combo-box .list-cell:filled:selected:hover {
+    -fx-background-color: white;
+    -fx-text-fill: #333333;
+}
+
+.combo-box .list-view {
+    -fx-background-color: #333333;
+    -fx-text-fill: white;
+}
+
+.combo-box .list-view .virtual-flow {
+    -fx-background-color: #333333;
+}
+
+.combo-box .list-view .virtual-flow .clipped-container .list-cell {
+    -fx-background-color: #333333;
+}
+.check-box {
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+}
+
+.check-box .box {
+    -fx-background-color: #333333;
+    -fx-border-color: #b5b5b5;
+    -fx-border-radius: 5px;
+}
+
+.check-box .mark {
+    -fx-background-color: #333333;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #ffffff;
+}

@@ -7,4 +7,5 @@ module FXTest {
 	requires javafx.base;
 	
 	opens application to javafx.graphics, javafx.fxml;
+	opens controllers to javafx.fxml;
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="353.0" prefWidth="750.0" style="-fx-background-color: #333333;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.AddOrgPopupController">
+   <children>
+      <Text fill="#b5b5b5" layoutX="14.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 32px;" text="Add Organization" wrappingWidth="251.03118133544922" />
+      <ComboBox fx:id="orgs_cb" layoutX="297.0" layoutY="105.0" prefHeight="28.0" prefWidth="214.0">
+      </ComboBox>
+      <Text fill="#b5b5b5" layoutX="240.0" layoutY="123.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Search" wrappingWidth="53.03130340576172" />
+      <Text fill="#b5b5b5" layoutX="212.0" layoutY="189.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Enter code" wrappingWidth="80.36469268798828" />
+      <TextField fx:id="code_tf" layoutX="297.0" layoutY="170.0" prefHeight="27.0" prefWidth="214.0" />
+      <Button layoutX="341.0" layoutY="232.0" mnemonicParsing="false" onAction="#addOrg" prefHeight="33.0" prefWidth="125.0" text="Submit" />
+   </children>
+</AnchorPane>
