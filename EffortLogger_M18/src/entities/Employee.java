@@ -19,20 +19,25 @@ public class Employee {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public boolean isIs_manager() {
+	public boolean is_manager() {
 		return is_manager;
 	}
-	public void setIs_manager(boolean is_manager) {
+	protected void setIs_manager(boolean is_manager) {
 		this.is_manager = is_manager;
 	}
-	private int ID;
+	@Override
+	public String toString() {
+		return "\tID: " + getID() + "\n\tNAME: " + getName() + "\n\tIS_MANAGER: " + is_manager();
+	}
+	
+	private int ID = -1;
 	private String name;
 	private String username;
 	private boolean is_manager;
-	public Employee(int id, String name, String username, boolean is_manager) {
+	public Employee(int id, String name, String username) {
 		this.ID = id;
 		this.name = name;
 		this.username = username;
-		this.is_manager = is_manager;
+		this.is_manager = false;
 	}
 }

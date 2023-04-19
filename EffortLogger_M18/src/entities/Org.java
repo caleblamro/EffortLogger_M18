@@ -27,14 +27,6 @@ public class Org {
 		this.description = description;
 	}
 
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
 	public float getAvg_velocity() {
 		return avg_velocity;
 	}
@@ -42,24 +34,31 @@ public class Org {
 	public void setAvg_velocity(float avg_velocity) {
 		this.avg_velocity = avg_velocity;
 	}
-	private int ID;
+	private int ID = -1;
 	private String name;
 	private String description;
-	private String code;
 	private float avg_velocity;
 	
 	public Org(String name, String description, String code) {
 		
 	}
 	
-	public Org(int iD, String name, String code, String description, float avg_velocity) {
+	public Org(int iD, String name, String description, float avg_velocity) {
 		ID = iD;
 		this.name = name;
-		this.code = code;
+		this.description = description;
 		this.avg_velocity = avg_velocity;
+	}
+	public Org(int id, String name, String description) {
+		ID = id;
+		this.name = name;
 		this.description = description;
 	}
+
+	@Override
+	public String toString() {
+		return "\tID: " + getID() + "\n\tNAME: " + getName() + "\n\tDESCRIPTION: " + getDescription();
+	}
 	public void initialize(DatabaseConnection db) {
-		db.createOrg(this);
 	}
 }
