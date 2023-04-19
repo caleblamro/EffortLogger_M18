@@ -4,6 +4,7 @@ module FXTest {
 	requires javafx.graphics;
 	requires javafx.fxml;
 	requires jbcrypt;
+	requires javafx.base;
 	
 	opens application to javafx.graphics, javafx.fxml;
 }

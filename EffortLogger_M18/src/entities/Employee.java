@@ -1,5 +1,10 @@
 package entities;
 
+/**
+ * 
+ * @author Caleb Lamoreaux
+ *
+ */
 public class Employee {
 	public int getID() {
 		return ID;

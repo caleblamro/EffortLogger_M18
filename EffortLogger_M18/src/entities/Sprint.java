@@ -2,6 +2,11 @@ package entities;
 
 import java.util.Date;
 
+/**
+ * 
+ * @author Caleb Lamoreaux
+ *
+ */
 public class Sprint {
 	private int ID = -1;
 	private String name;

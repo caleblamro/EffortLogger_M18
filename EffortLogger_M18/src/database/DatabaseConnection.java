@@ -20,6 +20,11 @@ import exceptions.OrgNotFoundException;
 import exceptions.UserNotFoundException;
 import exceptions.UsernameTakenException;
 
+/**
+ * 
+ * @author Caleb Lamoreaux
+ *
+ */
 public class DatabaseConnection {
     private Connection connection;
     private String url;
@@ -174,7 +179,6 @@ public class DatabaseConnection {
     	if(username == null || username.isBlank() || username.isEmpty() || password == null || password.isBlank() || password.isEmpty()) {
     		throw new InvalidInputException();
     	}
-    	//defend against SQL injection
     	PreparedStatement query = connection.prepareStatement("SELECT * FROM employees WHERE user_name = ?");
     	query.setString(1, username);
 		ResultSet result = query.executeQuery();

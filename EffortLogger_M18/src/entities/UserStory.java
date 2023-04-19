@@ -2,6 +2,11 @@ package entities;
 
 import java.util.Date;
 
+/**
+ * 
+ * @author Caleb Lamoreaux
+ *
+ */
 public class UserStory {
 	int ID = -1;
 	int project_id = -1;
