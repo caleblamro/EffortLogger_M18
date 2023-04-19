@@ -30,10 +30,11 @@ import javafx.scene.control.TextField;
 public class Main extends Application {
 	public static DatabaseConnection c;
 	public static Employee current_user = null;
-	private Stage primaryStage;
+	private static Stage primaryStage;
 	
 	@Override
 	public void start(Stage primaryStage) {
+		RootController.setMain(this);
 		this.primaryStage = primaryStage;
 		//wrap all your database calls with this, it will prevent the app from freezing up while waiting for those calls to finish
 		//SHOW LOGIN/SIGNUP HERE	
@@ -76,10 +77,30 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-	public static void goToSignupPage() {
+	public void goToSignupPage() {
 		System.out.println("Go to signup page");
+		Parent signup = null;
+		try {
+			signup = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(signup, 750,550);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		primaryStage.setScene(scene);
 	}
-
+	public void goToSigninPage() {
+		System.out.println("Go to signin page");
+		Parent signup = null;
+		try {
+			signup = FXMLLoader.load(getClass().getResource("Root.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(signup, 750,550);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		primaryStage.setScene(scene);
+	}
 	public static Employee getCurrentUser() {
 		return current_user;
 	}

@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 public class RootController {
 	private String username;
 	private String password;
+	private static Main main = null;
 	@FXML
 	private TextField username_tf;
 	@FXML
@@ -61,7 +62,15 @@ public class RootController {
 			}
 		});
 	}
+	
+	public static void setMain(Main m) {
+		main = m;
+	}
+	
 	public void signUp(ActionEvent event) {
-		Main.goToSignupPage();
+		main.goToSignupPage();
+	}
+	public void goToSigninPage(ActionEvent e) {
+		main.goToSigninPage();
 	}
 }
