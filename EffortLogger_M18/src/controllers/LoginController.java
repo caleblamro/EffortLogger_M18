@@ -1,6 +1,7 @@
 package controllers;
 
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import application.Main;
@@ -15,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 
 public class LoginController {
@@ -64,20 +66,49 @@ public class LoginController {
 			    	dialogPane.getStyleClass().add("alert");
 			    	alert.setTitle("Success");
 			    	alert.setHeaderText("Logged in successfully");
-			    	alert.showAndWait();
+			    	Optional<ButtonType> o = alert.showAndWait();
+			    	if(o.isPresent()) {
+			    		//open the select org page
+			    		//pass application back to main
+			    	}
 				});
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (UserNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			Platform.runLater(() -> {
+				Alert alert = new Alert(AlertType.ERROR);
+		    	DialogPane dialogPane = alert.getDialogPane();
+		    	dialogPane.getStylesheets().add(
+		    	   main.getClass().getResource("application.css").toExternalForm());
+		    	dialogPane.getStyleClass().add("alert");
+		    	alert.setTitle("Error");
+		    	alert.setHeaderText("User does not exist");
+		    	Optional<ButtonType> o = alert.showAndWait();
+			});
 			} catch (InvalidInputException e) {
-				// TODO Auto-generated catch block
+				Platform.runLater(() -> {
+					Alert alert = new Alert(AlertType.WARNING);
+			    	DialogPane dialogPane = alert.getDialogPane();
+			    	dialogPane.getStylesheets().add(
+			    	   main.getClass().getResource("application.css").toExternalForm());
+			    	dialogPane.getStyleClass().add("alert");
+			    	alert.setTitle("Warning");
+			    	alert.setHeaderText("Please fill in all fields");
+			    	Optional<ButtonType> o = alert.showAndWait();
+				});
 				e.printStackTrace();
 			} catch (IncorrectPasswordException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Platform.runLater(() -> {
+					Alert alert = new Alert(AlertType.ERROR);
+			    	DialogPane dialogPane = alert.getDialogPane();
+			    	dialogPane.getStylesheets().add(
+			    	   main.getClass().getResource("application.css").toExternalForm());
+			    	dialogPane.getStyleClass().add("alert");
+			    	alert.setTitle("Error");
+			    	alert.setHeaderText("Incorrect password");
+			    	Optional<ButtonType> o = alert.showAndWait();
+				});
 			}
 		});
 	}

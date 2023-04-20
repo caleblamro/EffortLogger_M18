@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import controllers.AddOrgPopupController;
+import controllers.CreateOrgController;
 import controllers.LoginController;
 import controllers.SignUpController;
 
@@ -36,7 +38,9 @@ import javafx.scene.image.Image;
  */
 public class Main extends Application {
 	public static DatabaseConnection c;
+	//CURRENT USER SHOULD ONLY BE ASSIGNED FROM THE LOGIN OR SIGNUP PAGE
 	public static Employee current_user = null;
+	//USER THE PRIMARY STAGE TO CHANGE THE CONTENT OF THE MAIN WINDOW, LAUNCH A NEW SCENE TO CREATE A POPUP
 	public Stage primaryStage;
 	private static int WIDTH = 750;
 	private static int HEIGHT = 550;
@@ -47,7 +51,7 @@ public class Main extends Application {
 		SignUpController.setMain(this);
 		this.primaryStage = primaryStage;
 		//wrap all your database calls with this, it will prevent the app from freezing up while waiting for those calls to finish
-		//SHOW LOGIN/SIGNUP HERE	
+		//SHOW LOGIN/SIGNUP HERE
 		CompletableFuture.runAsync(() -> {
 			try {	
 				c = new DatabaseConnection();
@@ -111,6 +115,9 @@ public class Main extends Application {
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		primaryStage.setScene(scene);
 	}
+	public void goToDashboard() {
+		
+	}
 	public static Employee getCurrentUser() {
 		return current_user;
 	}
@@ -119,6 +126,7 @@ public class Main extends Application {
 	}
 	
 	public void showOrgSelectorDialog() {
+		AddOrgPopupController.setMain(this);
 		Stage c = new Stage();
 		c.initStyle(StageStyle.UTILITY);
 		Parent add_org_popup = null;
@@ -128,6 +136,21 @@ public class Main extends Application {
 			el.printStackTrace();
 		}
 		Scene s = new Scene(add_org_popup, 600, 350);
+		s.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		c.setScene(s);
+		c.show();
+	}
+	public void showCreateOrgDialog() {
+		CreateOrgController.setMain(this);
+		Stage c = new Stage();
+		c.initStyle(StageStyle.UTILITY);
+		Parent add_org_popup = null;
+		try {
+			add_org_popup = FXMLLoader.load(getClass().getResource("CreateOrg.fxml"));
+		} catch (IOException el) {
+			el.printStackTrace();
+		}
+		Scene s = new Scene(add_org_popup, 691, 447);
 		s.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		c.setScene(s);
 		c.show();

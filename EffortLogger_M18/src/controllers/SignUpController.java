@@ -1,33 +1,23 @@
 package controllers;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.CompletableFuture;
 
-import application.AutoComboBox;
 import application.Main;
 import entities.Employee;
-import entities.Org;
 import exceptions.InvalidInputException;
 import exceptions.PasswordsDoNotMatchException;
 import exceptions.UsernameTakenException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.skin.ComboBoxListViewSkin;
-import javafx.scene.layout.HBox;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.StringConverter;
+import javafx.scene.control.Alert.AlertType;
 
 public class SignUpController {
 	//ALL CONTROLLERS NEED THIS STATIC REFERENCE TO MAIN, OR WE WON'T BE ABLE TO NAVIGATE THROUGH PAGES
@@ -50,6 +40,18 @@ public class SignUpController {
 	public void signUp(ActionEvent e) throws PasswordsDoNotMatchException {
 		if(!password_pf.getText().equals(confirm_password_pf.getText())) {
 			throw new PasswordsDoNotMatchException();
+		}
+		if(password_pf.getText().length() < 6) {
+			Platform.runLater(() -> {
+				Alert alert = new Alert(AlertType.WARNING);
+		    	DialogPane dialogPane = alert.getDialogPane();
+		    	dialogPane.getStylesheets().add(
+		    	   main.getClass().getResource("application.css").toExternalForm());
+		    	dialogPane.getStyleClass().add("alert");
+		    	alert.setTitle("Warning");
+		    	alert.setHeaderText("Password must be at least six characters long");
+		    	alert.showAndWait();
+			});
 		}
 		CompletableFuture.runAsync(() -> {
 			try {

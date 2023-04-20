@@ -23,6 +23,7 @@ public class AddOrgPopupController implements Initializable {
 	@FXML
 	TextField code_tf;
 	private ArrayList<Org> orgs;
+	private static Main main;
 	
 	public void addOrg(ActionEvent e) {
 		Org o = orgs_cb.getValue();
@@ -38,6 +39,9 @@ public class AddOrgPopupController implements Initializable {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+	}
+	public static void setMain(Main m) {
+		main = m;
 	}
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -72,5 +76,8 @@ public class AddOrgPopupController implements Initializable {
 			orgs_cb.getItems().add(o);	
 		}
 		AutoComboBox.autoCompleteComboBoxPlus(orgs_cb, (typed_text, item) -> item.getName().toLowerCase().contains(typed_text.toLowerCase()));
+	}
+	public void displayCreateOrg() {
+		main.showCreateOrgDialog();
 	}
 }

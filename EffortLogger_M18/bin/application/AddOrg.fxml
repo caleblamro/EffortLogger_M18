@@ -15,6 +15,6 @@
       <Text fill="#b5b5b5" layoutX="151.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Enter code" wrappingWidth="80.36469268798828" />
       <TextField fx:id="code_tf" layoutX="236.0" layoutY="161.0" prefHeight="27.0" prefWidth="214.0" />
       <Button styleClass="button-primary" stylesheets="@application.css" layoutX="324.0" layoutY="220.0" mnemonicParsing="false" onAction="#addOrg" prefHeight="33.0" prefWidth="125.0" text="Submit" />
-      <Button styleClass="button-primary" stylesheets="@application.css" layoutX="151.0" layoutY="220.0" mnemonicParsing="false" onAction="#addOrg" prefHeight="33.0" prefWidth="125.0" style="-fx-background-color: transparent; -fx-text-fill: #2196f3;" text="Create New" />
+      <Button styleClass="button-primary" stylesheets="@application.css" layoutX="151.0" layoutY="220.0" mnemonicParsing="false" onAction="#displayCreateOrg" prefHeight="33.0" prefWidth="125.0" style="-fx-background-color: transparent; -fx-text-fill: #2196f3;" text="Create New" />
    </children>
 </AnchorPane>

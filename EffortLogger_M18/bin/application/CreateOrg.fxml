@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="447.0" prefWidth="691.0" style="-fx-background-color: #333333;" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CreateOrgController">
+   <children>
+      <Text fill="#b5b5b5" layoutX="14.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 32px;" text="Create Organization" wrappingWidth="308.3645553588867" />
+      <Text fill="#b5b5b5" layoutX="114.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Name" wrappingWidth="53.03130340576172" />
+      <Text fill="#b5b5b5" layoutX="114.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Code" wrappingWidth="80.36469268798828" />
+      <TextField fx:id="name_tf" layoutX="114.0" layoutY="111.0" prefHeight="27.0" prefWidth="214.0" />
+      <Button layoutX="402.0" layoutY="328.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="125.0" styleClass="button-primary" stylesheets="@application.css" text="Submit" onAction="#createOrg" />
+      <Button layoutX="164.0" layoutY="328.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="125.0" style="-fx-background-color: transparent; -fx-text-fill: #b5b5b5;" styleClass="button-primary" onAction="#clear" stylesheets="@application.css" text="Clear" />
+      <PasswordField fx:id="code_pf" layoutX="114.0" layoutY="176.0" prefHeight="27.0" prefWidth="214.0" />
+      <Text fill="#b5b5b5" layoutX="114.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Confirm Code" wrappingWidth="107.03144073486328" />
+      <PasswordField fx:id="confirm_code_pf" layoutX="114.0" layoutY="240.0" prefHeight="27.0" prefWidth="214.0" />
+      <TextArea fx:id="desc_ta" layoutX="373.0" layoutY="110.0" prefHeight="98.0" prefWidth="214.0" stylesheets="@application.css" />
+      <Text fill="#b5b5b5" layoutX="373.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="89.69792938232422" />
+   </children>
+</AnchorPane>

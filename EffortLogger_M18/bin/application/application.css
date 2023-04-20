@@ -4,6 +4,8 @@
 	-fx-border-radius: 0;
 }
 .text-input{
+	-fx-padding: 0;
+	-fx-font-size: 16px;
 	-fx-background-color: transparent;
     -fx-border-width: 0 0 2px 0;
     -fx-border-color: #b5b5b5;
@@ -80,4 +82,10 @@
 }
 .button:hover{
 	-fx-cursor: hand;
+}
+.content {
+    -fx-background-color: transparent;
+}
+.viewport{
+    -fx-background-color: transparent; 
 }
