@@ -14,7 +14,7 @@
    <children>
       <Text layoutX="282.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 32px;" text="Effort Logger">
          <fill>
-            <LinearGradient endX="1.0" endY="1.0" startX="0.3343848460104187" startY="0.35962145110410093">
+            <LinearGradient endX="1.0" endY="1.0" startX="0.5299684181574391" startY="0.35962145110410093">
                <stops>
                   <Stop>
                      <color>
@@ -23,7 +23,7 @@
                   </Stop>
                   <Stop offset="1.0">
                      <color>
-                        <Color red="0.7372549176216125" green="0.2862745225429535" blue="0.2862745225429535" />
+                        <Color red="0.2847000062465668" green="0.7300000190734863" blue="0.36001500487327576" />
                      </color>
                   </Stop>
                </stops>
@@ -39,8 +39,8 @@
       <PasswordField fx:id="confirm_password_pf" layoutX="402.0" layoutY="255.0" prefHeight="27.0" prefWidth="226.0" stylesheets="@application.css" />
       <Text fill="#b5b5b5" layoutX="402.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Confirm Password" />
       <CheckBox fx:id="is_manager_cb" layoutX="242.0" layoutY="316.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" style="-fx-font-size: 16px; -fx-text-fill: #b5b5b5;" text="Manager" />
-      <Button fx:id="signUpButton" onAction="#signUp" layoutX="404.0" layoutY="393.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="125.0" styleClass="button-primary" stylesheets="@application.css" text="Sign Up" />
-      <Button onAction="#clear" layoutX="219.0" layoutY="393.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="125.0" style="-fx-background-color: transparent;" styleClass="button-primary" stylesheets="@application.css" text="Clear" />
+      <Button fx:id="signUpButton" layoutX="404.0" layoutY="393.0" mnemonicParsing="false" onAction="#signUp" prefHeight="38.0" prefWidth="125.0" styleClass="button-primary" stylesheets="@application.css" text="Sign Up" />
+      <Button layoutX="219.0" layoutY="393.0" mnemonicParsing="false" onAction="#clear" prefHeight="38.0" prefWidth="125.0" style="-fx-background-color: transparent;" styleClass="button-primary" stylesheets="@application.css" text="Clear" />
       <Button layoutX="29.0" layoutY="471.0" mnemonicParsing="false" onAction="#goToSigninPage" prefHeight="38.0" prefWidth="125.0" style="-fx-background-color: transparent; -fx-text-fill: #ed3f32;" styleClass="button-primary" stylesheets="@application.css" text="Go Back" textFill="#ed3f32" />
    </children>
 </AnchorPane>

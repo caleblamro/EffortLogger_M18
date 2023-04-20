@@ -26,6 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 
 
 /**
@@ -79,6 +80,8 @@ public class Main extends Application {
 				e1.printStackTrace();
 			}
 		});
+		Image icon = new Image(getClass().getResourceAsStream("icon.png"));
+		primaryStage.getIcons().add(icon);
 		primaryStage.setScene(scene);
 		primaryStage.show();
 	}
@@ -124,7 +127,7 @@ public class Main extends Application {
 		} catch (IOException el) {
 			el.printStackTrace();
 		}
-		Scene s = new Scene(add_org_popup, 750, 350);
+		Scene s = new Scene(add_org_popup, 600, 350);
 		s.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		c.setScene(s);
 		c.show();

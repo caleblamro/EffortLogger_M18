@@ -9,27 +9,26 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane style="-fx-background-color: #333333;" fx:controller="controllers.LoginController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="739.0" style="-fx-background-color: #333333;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
    <children>
-      <Button onAction="#login" styleClass="button-primary" layoutX="384.0" layoutY="344.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="125.0" text="Login" />
-      <Button onAction="#goToSignUpPage" layoutX="229.0" layoutY="344.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="125.0" style="-fx-background-color: transparent;" text="Signup" textFill="WHITE" />
-      <TextField fx:id="username_tf" styleClass="text-input" layoutX="229.0" layoutY="223.0" prefHeight="25.0" prefWidth="281.0" />
-      <PasswordField fx:id="password_pf" styleClass="text-input" layoutX="229.0" layoutY="281.0" prefHeight="25.0" prefWidth="281.0" />
+      <Button styleClass="button-primary" stylesheets="@application.css" layoutX="384.0" layoutY="344.0" mnemonicParsing="false" onAction="#login" prefHeight="38.0" prefWidth="125.0" text="Login" />
+      <Button styleClass="button-primary" stylesheets="@application.css" layoutX="229.0" layoutY="344.0" mnemonicParsing="false" onAction="#goToSignUpPage" prefHeight="38.0" prefWidth="125.0" style="-fx-background-color: transparent;" text="Signup" textFill="WHITE" />
+      <TextField fx:id="username_tf" layoutX="229.0" layoutY="223.0" prefHeight="25.0" prefWidth="281.0" styleClass="text-input" />
+      <PasswordField fx:id="password_pf" layoutX="229.0" layoutY="281.0" prefHeight="25.0" prefWidth="281.0" styleClass="text-input" />
       <Text fill="#b5b5b5" layoutX="229.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Username" wrappingWidth="72.80335998535156" />
       <Text fill="#b5b5b5" layoutX="229.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Password" wrappingWidth="72.80335998535156" />
-      <Text layoutX="275.0" layoutY="162.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 32px;" text="Effort Logger" wrappingWidth="189.47006225585938">
+      <Text layoutX="277.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 32px;" text="Effort Logger">
          <fill>
-            <LinearGradient endX="1.0" endY="1.0">
+            <LinearGradient endX="1.0" endY="1.0" startX="0.5299684181574391" startY="0.35962145110410093">
                <stops>
                   <Stop>
                      <color>
-                        <Color red="0.26096490025520325" green="0.5331871509552002" blue="0.5526315569877625" />
+                        <Color red="0.26274511218070984" green="0.5333333611488342" blue="0.5529412031173706" />
                      </color>
                   </Stop>
                   <Stop offset="1.0">
                      <color>
-                        <Color red="0.7368420958518982" green="0.28654971718788147" blue="0.28654971718788147" />
+                        <Color red="0.2847000062465668" green="0.7300000190734863" blue="0.36001500487327576" />
                      </color>
                   </Stop>
                </stops>

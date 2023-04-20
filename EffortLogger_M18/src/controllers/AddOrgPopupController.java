@@ -51,7 +51,7 @@ public class AddOrgPopupController implements Initializable {
 		orgs_cb.setConverter(new StringConverter<Org>() {
 
 			@Override
-			public Org fromString(String s) {
+			public Org fromString(String s) { //THIS IS NOT HOW WE SHOULD BE FIDNING THE CORRECT OBJECT'S REFERENCE... LMK IF YOU HAVE OTHER IDEAS
 				for(Org o : orgs) {
 					if(o == null) continue;
 					if(o.getName().equals(s)) {
