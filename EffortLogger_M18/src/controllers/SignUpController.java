@@ -29,15 +29,18 @@ public class SignUpController {
 	private PasswordField confirm_password_pf;
 	@FXML
 	private CheckBox is_manager_cb;
-	
-	public void signUp(ActionEvent e) throws PasswordsDoNotMatchException {
+	/**
+	 * Starts the process of signing up (called by onAction for the signup button in SignUp.fxml)
+	 * @param e - ActionEvent from the button 
+	 */
+	public void signUp(ActionEvent e) {
 		if(!password_pf.getText().equals(confirm_password_pf.getText())) {
-			throw new PasswordsDoNotMatchException();
+			AlertUser.showAlert("Warning", "Passwords do not match", AlertType.WARNING);
+			return;
 		}
 		if(password_pf.getText().length() < 6) {
-			Platform.runLater(() -> {
-				AlertUser.showAlert("Warning", "Password must be at least six characters long", AlertType.WARNING);
-			});
+			AlertUser.showAlert("Warning", "Password must be at least six characters long", AlertType.WARNING);
+			return;
 		}
 		CompletableFuture.runAsync(() -> {
 			try {

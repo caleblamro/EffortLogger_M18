@@ -14,7 +14,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import ui.AlertUser;
-import ui.Page;
 import javafx.scene.control.Alert.AlertType;
 
 public class LoginController {

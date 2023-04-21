@@ -18,14 +18,18 @@ import javafx.scene.image.Image;
  *
  */
 public class Main extends Application {
+	//can access DatabaseConnection from other files via Main.c
 	public static DatabaseConnection c;
-	//CURRENT USER SHOULD ONLY BE ASSIGNED FROM THE LOGIN OR SIGNUP PAGE
+	//should only be set from either login or sign up page
 	private static Employee current_user = null;
-	//USER THE PRIMARY STAGE TO CHANGE THE CONTENT OF THE MAIN WINDOW, LAUNCH A NEW SCENE TO CREATE A POPUP
 	private static Stage primaryStage;
 	public static int WIDTH = 750;
 	public static int HEIGHT = 550;
+
 	
+	public static void main(String[] args) {
+		launch(args);
+	}
 	@Override
 	public void start(Stage primaryStage) {
 		Main.primaryStage = primaryStage;
@@ -33,7 +37,7 @@ public class Main extends Application {
 		CompletableFuture.runAsync(() -> {
 			try {	
 				c = new DatabaseConnection();
-				System.out.println("Attempting to connect to AWS RDS...");
+				System.out.println("Attempting to connect to AWS RDS");
 				c.connect();
 				System.out.println("Connected!");
 			}catch(SQLException e) {
@@ -43,12 +47,12 @@ public class Main extends Application {
 			}
         });
 		
-		Page.move("Login", primaryStage, WIDTH, HEIGHT);
+		Page.moveTo("Login", primaryStage, WIDTH, HEIGHT);
 		primaryStage.setTitle("Effort Logger");
 		primaryStage.setOnCloseRequest(e -> {
 			try {
 				c.disconnect();
-				System.out.println("DISCONNECTED");
+				System.out.println("Disconnected");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -57,21 +61,25 @@ public class Main extends Application {
 		primaryStage.getIcons().add(icon);
 		primaryStage.show();
 	}
+	/**
+	 * Gets the current user logged into the application
+	 * @return the current user
+	 */
 	public static Employee getCurrentUser() {
 		return current_user;
 	}
+	/**
+	 * Sets the current user for the application
+	 * @param current_user - the current user of the application
+	 */
 	public static void setCurrentUser(Employee current_user) {
 		Main.current_user = current_user;
 	}
-	
-	public static void main(String[] args) {
-		launch(args);
-	}
 	public static void goToSignUpPage() {
-		Page.move("Signup", primaryStage, WIDTH, HEIGHT);
+		Page.moveTo("Signup", primaryStage, WIDTH, HEIGHT);
 	}
 	public static void goToLoginPage() {
-		Page.move("Login", primaryStage, WIDTH, HEIGHT);
+		Page.moveTo("Login", primaryStage, WIDTH, HEIGHT);
 	}
 	public static void goToDashboard() {
 		if(current_user == null) {
@@ -79,10 +87,10 @@ public class Main extends Application {
 			return;
 		}
 		if(current_user.is_manager()) {
-			Page.move("ManagerDashboard", primaryStage, 650, 450);
+			Page.moveTo("ManagerDashboard", primaryStage, 650, 450);
 		}else {
 			//navigate to the same page until employee page is made
-			Page.move("ManagerDashboard", primaryStage, 650, 450);
+			Page.moveTo("ManagerDashboard", primaryStage, 650, 450);
 		}
 	}
 

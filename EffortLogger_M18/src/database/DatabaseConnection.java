@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.sql.Date;
 import java.util.ArrayList;
 
+
 import entities.Employee;
 import entities.EffortLog;
 import entities.Manager;
@@ -320,6 +321,42 @@ public class DatabaseConnection {
 		return true;
     }
     /**
+     * Creates a new user story given the user inputs
+     * @param name - inputed name for the user story
+     * @param description - description for user story
+     * @param start_date - est start date for the user story
+     * @param est_end_date - est end date for the user story
+     * @param e - the manager who owns this user story
+     * @param p - the project that this user story is assigned to
+     * @param story_points - number of story points estimated
+     * @return - new userstory object with generated fields
+     * @throws InvalidInputException
+     * @throws SQLException
+     */
+    public UserStory createUserStory(String name, String description, Date start_date, Date est_end_date, Manager e, Project p, int story_points) throws InvalidInputException, SQLException {
+    	if(name == null || name.isBlank() || name.isEmpty() || description == null || description.isEmpty() || description.isBlank() || start_date == null || est_end_date == null || e == null || p == null) {
+    		throw new InvalidInputException();
+    	}
+    	//insert new project
+    	PreparedStatement s = connection.prepareStatement("INSERT INTO user_stories (name, description, start_date, est_end_date, owner_id, project_id, story_points, assigned_to_sprint) VALUES (?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+    	s.setString(1, name);
+    	s.setString(2, description);
+    	s.setDate(3, start_date);
+    	s.setDate(4, est_end_date);
+    	s.setInt(5, e.getID());
+    	s.setInt(6, p.getID());
+    	s.setInt(7, story_points);
+    	s.setBoolean(8, false);
+    	int rows_affected = s.executeUpdate();
+    	if(rows_affected != 1) {
+    		throw new SQLException();
+    	}
+		ResultSet generated_keys = s.getGeneratedKeys();
+    	if(!generated_keys.next()) throw new SQLException();
+    	int generated_user_story_id = generated_keys.getInt("id");
+    	return new UserStory(generated_user_story_id, false, name, description, start_date, est_end_date, story_points);
+    }
+    /**
      * Formats java.util.Date into the database's date format
      * @param d - the date to format
      * @return - the properly formatted string
@@ -345,30 +382,6 @@ public class DatabaseConnection {
     
     public void completeUserStory() {
     	
-    }
-    
-    public UserStory createUserStory(String name, String description, Date start_date, Date est_end_date, Manager e, Project p, int story_points) throws InvalidInputException, SQLException {
-    	if(name == null || name.isBlank() || name.isEmpty() || description == null || description.isEmpty() || description.isBlank() || start_date == null || est_end_date == null || e == null || p == null) {
-    		throw new InvalidInputException();
-    	}
-    	//insert new project
-    	PreparedStatement s = connection.prepareStatement("INSERT INTO user_stories (name, description, start_date, est_end_date, owner_id, project_id, story_points, assigned_to_sprint) VALUES (?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
-    	s.setString(1, name);
-    	s.setString(2, description);
-    	s.setDate(3, start_date);
-    	s.setDate(4, est_end_date);
-    	s.setInt(5, e.getID());
-    	s.setInt(6, p.getID());
-    	s.setInt(7, story_points);
-    	s.setBoolean(8, false);
-    	int rows_affected = s.executeUpdate();
-    	if(rows_affected != 1) {
-    		throw new SQLException();
-    	}
-		ResultSet generated_keys = s.getGeneratedKeys();
-    	if(!generated_keys.next()) throw new SQLException();
-    	int generated_user_story_id = generated_keys.getInt("id");
-    	return new UserStory(generated_user_story_id, false, name, description, start_date, est_end_date, story_points);
     }
     //assign user story to a team's backlog
     public void assignUserStory(Team t, Manager m, UserStory u) {
