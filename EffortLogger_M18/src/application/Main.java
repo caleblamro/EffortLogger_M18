@@ -38,6 +38,7 @@ import javafx.scene.image.Image;
  *
  */
 public class Main extends Application {
+	//used to get the location for all the fxml files
 	Fxml location = new Fxml();
 	public static DatabaseConnection c;
 	//CURRENT USER SHOULD ONLY BE ASSIGNED FROM THE LOGIN OR SIGNUP PAGE
