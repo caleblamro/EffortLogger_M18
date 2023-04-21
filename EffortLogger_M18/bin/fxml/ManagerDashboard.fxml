@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="529.0" prefWidth="640.0" style="-fx-background-color: #333333;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <MenuBar style="-fx-background-color: #b5b5b5;" VBox.vgrow="NEVER">
+      <menus>
+            <Menu mnemonicParsing="false" style="-fx-fill: #ffffff;" text="New">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="New Project" />
+                  <MenuItem mnemonicParsing="false" text="New Team" />
+                  <MenuItem mnemonicParsing="false" text="New User Story" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Quit" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="|" />
+        <Menu mnemonicParsing="false" text="Dashboard" />
+        <Menu mnemonicParsing="false" text="Projects" />
+        <Menu mnemonicParsing="false" text="Teams" />
+      </menus>
+    </MenuBar>
+      <ScrollPane prefHeight="508.0" prefWidth="640.0" style="-fx-background-color: #333333;">
+         <content>
+            <AnchorPane prefHeight="497.0" prefWidth="621.0" style="-fx-background-color: #333333;" stylesheets="@application.css">
+               <children>
+                  <Circle fill="#2577c3" layoutX="121.0" layoutY="118.0" radius="27.0" strokeType="INSIDE">
+                     <stroke>
+                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </RadialGradient>
+                     </stroke>
+                  </Circle>
+                  <Text layoutX="107.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 24px; -fx-fill: #fff;" text="19" wrappingWidth="28.09375762939453" />
+                  <Text fill="#b5b5b5" layoutX="14.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18px; -fx-font-weight: 800;" text="Overview" wrappingWidth="84.76038360595703" />
+                  <Circle fill="#d21e1e" layoutX="325.0" layoutY="117.0" radius="27.0" strokeType="INSIDE">
+                     <stroke>
+                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </RadialGradient>
+                     </stroke>
+                  </Circle>
+                  <Circle fill="#2ab127" layoutX="523.0" layoutY="117.0" radius="27.0" strokeType="INSIDE">
+                     <stroke>
+                        <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+                           <stops>
+                              <Stop>
+                                 <color>
+                                    <Color />
+                                 </color>
+                              </Stop>
+                              <Stop offset="1.0">
+                                 <color>
+                                    <Color red="1.0" green="1.0" blue="1.0" />
+                                 </color>
+                              </Stop>
+                           </stops>
+                        </RadialGradient>
+                     </stroke>
+                  </Circle>
+                  <Text layoutX="318.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 24px; -fx-fill: #fff;" text="9" wrappingWidth="13.427009582519531" />
+                  <Text layoutX="510.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 24px; -fx-fill: #fff;" text="62" wrappingWidth="26.09375762939453" />
+                  <Text layoutX="14.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 24px; -fx-fill: #b5b5b5;" text="Welcome, Manager" wrappingWidth="210.09370231628418" />
+                  <Text fill="#b5b5b5" layoutX="56.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18px;" text="Story Points Left" wrappingWidth="130.76038360595703" />
+                  <Text fill="#b5b5b5" layoutX="271.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18px;" text="Total Defects" wrappingWidth="106.09375762939453" />
+                  <Text fill="#b5b5b5" layoutX="433.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18px;" text="Percent Completed" wrappingWidth="152.76038360595703" />
+                  <Text fill="#b5b5b5" layoutX="12.0" layoutY="287.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18px; -fx-font-weight: 800;" text="Projects" wrappingWidth="72.09363555908203" />
+                  <Accordion layoutX="18.0" layoutY="301.0" prefHeight="81.0" prefWidth="579.0" style="-fx-background-color: #333333;">
+                    <panes>
+                      <TitledPane animated="false" text="Project Title 1">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </TitledPane>
+                      <TitledPane animated="false" style="-fx-text-fill: #b5b5b5" text="Project Title 2">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-text-fill: #b5b5b5" />
+                        </content>
+                      </TitledPane>
+                      <TitledPane animated="false" style="-fx-text-fill: #b5b5b5" text="Project Title 3">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </TitledPane>
+                    </panes>
+                  </Accordion>
+                  <Accordion layoutX="18.0" layoutY="416.0" prefHeight="81.0" prefWidth="579.0">
+                     <panes>
+                        <TitledPane animated="false" style="-fx-text-fill: #b5b5b5" text="Team 1">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </TitledPane>
+                        <TitledPane animated="false" style="-fx-text-fill: #b5b5b5" text="Team 2">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </TitledPane>
+                        <TitledPane animated="false" style="-fx-text-fill: #b5b5b5" text="Team 3">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </TitledPane>
+                     </panes>
+                  </Accordion>
+                  <Text fill="#b5b5b5" layoutX="12.0" layoutY="409.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18px; -fx-font-weight: 800;" text="Teams" wrappingWidth="72.09363555908203" />
+                  <Text fill="#b5b5b5" layoutX="11.0" layoutY="530.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18px; -fx-font-weight: 800;" text="Defects" wrappingWidth="64.09363555908203" />
+                  <Text fill="#b5b5b5" layoutX="217.0" layoutY="262.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 18px;" text="EST. Delivery (story points)" wrappingWidth="213.4271240234375" />
+                  <Text fill="#2ab127" layoutX="302.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 32px; -fx-font-weight: 800;" text="28" wrappingWidth="38.76038360595703" />
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+  </children>
+</VBox>

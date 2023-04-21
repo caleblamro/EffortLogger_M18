@@ -38,16 +38,18 @@ public class Org {
 	private String name;
 	private String description;
 	private float avg_velocity;
+	private int days_per_point;
 	
 	public Org(String name, String description, String code) {
 		
 	}
 	
-	public Org(int iD, String name, String description, float avg_velocity) {
+	public Org(int iD, String name, String description, float avg_velocity, int units) {
 		ID = iD;
 		this.name = name;
 		this.description = description;
 		this.avg_velocity = avg_velocity;
+		this.days_per_point = units;
 	}
 	public Org(int id, String name, String description) {
 		ID = id;

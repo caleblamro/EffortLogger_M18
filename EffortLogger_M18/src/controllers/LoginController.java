@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import ui.AlertUser;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
@@ -59,55 +60,34 @@ public class LoginController {
 				System.out.println("EMPLOYEE:\n" + e);
 				main.setCurrentUser(e);
 				Platform.runLater(() -> {
-			    	Alert alert = new Alert(AlertType.INFORMATION);
-			    	DialogPane dialogPane = alert.getDialogPane();
-			    	dialogPane.getStylesheets().add(
-			    	   main.getClass().getResource("application.css").toExternalForm());
-			    	dialogPane.getStyleClass().add("alert");
-			    	alert.setTitle("Success");
-			    	alert.setHeaderText("Logged in successfully");
-			    	Optional<ButtonType> o = alert.showAndWait();
-			    	if(o.isPresent()) {
-			    		//open the select org page
-			    		//pass application back to main
-			    	}
+//			    	Alert alert = new Alert(AlertType.INFORMATION);
+//			    	DialogPane dialogPane = alert.getDialogPane();
+//			    	dialogPane.getStylesheets().add(
+//			    	   main.getClass().getResource("application.css").toExternalForm());
+//			    	dialogPane.getStyleClass().add("alert");
+//			    	alert.setTitle("Success");
+//			    	alert.setHeaderText("Logged in successfully");
+//			    	Optional<ButtonType> o = alert.showAndWait();
+//			    	if(o.isPresent()) {
+//			    		main.goToDashboard();
+//			    	}
+		    		main.goToDashboard();
 				});
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				AlertUser.showAlert("Error", "Something unexpected happened", AlertType.ERROR);
 				e.printStackTrace();
 			} catch (UserNotFoundException e) {
 			Platform.runLater(() -> {
-				Alert alert = new Alert(AlertType.ERROR);
-		    	DialogPane dialogPane = alert.getDialogPane();
-		    	dialogPane.getStylesheets().add(
-		    	   main.getClass().getResource("application.css").toExternalForm());
-		    	dialogPane.getStyleClass().add("alert");
-		    	alert.setTitle("Error");
-		    	alert.setHeaderText("User does not exist");
-		    	Optional<ButtonType> o = alert.showAndWait();
+				AlertUser.showAlert("Error", "User does not exist", AlertType.ERROR);
 			});
 			} catch (InvalidInputException e) {
 				Platform.runLater(() -> {
-					Alert alert = new Alert(AlertType.WARNING);
-			    	DialogPane dialogPane = alert.getDialogPane();
-			    	dialogPane.getStylesheets().add(
-			    	   main.getClass().getResource("application.css").toExternalForm());
-			    	dialogPane.getStyleClass().add("alert");
-			    	alert.setTitle("Warning");
-			    	alert.setHeaderText("Please fill in all fields");
-			    	Optional<ButtonType> o = alert.showAndWait();
+					AlertUser.showAlert("Warning", "Please fill in all fields", AlertType.WARNING);
 				});
 				e.printStackTrace();
 			} catch (IncorrectPasswordException e) {
 				Platform.runLater(() -> {
-					Alert alert = new Alert(AlertType.ERROR);
-			    	DialogPane dialogPane = alert.getDialogPane();
-			    	dialogPane.getStylesheets().add(
-			    	   main.getClass().getResource("application.css").toExternalForm());
-			    	dialogPane.getStyleClass().add("alert");
-			    	alert.setTitle("Error");
-			    	alert.setHeaderText("Incorrect password");
-			    	Optional<ButtonType> o = alert.showAndWait();
+					AlertUser.showAlert("Error", "Incorrect password", AlertType.WARNING);
 				});
 			}
 		});

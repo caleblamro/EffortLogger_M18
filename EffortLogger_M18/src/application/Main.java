@@ -18,6 +18,7 @@ import exceptions.IncorrectPasswordException;
 import exceptions.InvalidInputException;
 import exceptions.OrgExistsException;
 import exceptions.UserNotFoundException;
+import fxml.Fxml;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,6 +38,7 @@ import javafx.scene.image.Image;
  *
  */
 public class Main extends Application {
+	Fxml location = new Fxml();
 	public static DatabaseConnection c;
 	//CURRENT USER SHOULD ONLY BE ASSIGNED FROM THE LOGIN OR SIGNUP PAGE
 	public static Employee current_user = null;
@@ -68,7 +70,7 @@ public class Main extends Application {
 			
 		Parent root = null;
 		try {
-			root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+			root = FXMLLoader.load(location.getClass().getResource("Login.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -96,7 +98,7 @@ public class Main extends Application {
 	public void goToSignupPage() {
 		Parent signup = null;
 		try {
-			signup = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
+			signup = FXMLLoader.load(location.getClass().getResource("SignUp.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -107,16 +109,13 @@ public class Main extends Application {
 	public void goToSigninPage() {
 		Parent signup = null;
 		try {
-			signup = FXMLLoader.load(getClass().getResource("Login.fxml"));
+			signup = FXMLLoader.load(location.getClass().getResource("Login.fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		Scene scene = new Scene(signup, WIDTH, HEIGHT);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		primaryStage.setScene(scene);
-	}
-	public void goToDashboard() {
-		
 	}
 	public static Employee getCurrentUser() {
 		return current_user;
@@ -131,7 +130,7 @@ public class Main extends Application {
 		c.initStyle(StageStyle.UTILITY);
 		Parent add_org_popup = null;
 		try {
-			add_org_popup = FXMLLoader.load(getClass().getResource("AddOrg.fxml"));
+			add_org_popup = FXMLLoader.load(location.getClass().getResource("AddOrg.fxml"));
 		} catch (IOException el) {
 			el.printStackTrace();
 		}
@@ -140,13 +139,30 @@ public class Main extends Application {
 		c.setScene(s);
 		c.show();
 	}
+	
+	public void goToDashboard() {
+		if(current_user == null) {
+			System.out.println("NO USER IS LOGGED IN");
+			return;
+		}
+
+		Parent signup = null;
+		try {
+			signup = FXMLLoader.load(location.getClass().getResource("ManagerDashboard.fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(signup, 650, 450);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		primaryStage.setScene(scene);
+	}
+	
 	public void showCreateOrgDialog() {
-		CreateOrgController.setMain(this);
 		Stage c = new Stage();
 		c.initStyle(StageStyle.UTILITY);
 		Parent add_org_popup = null;
 		try {
-			add_org_popup = FXMLLoader.load(getClass().getResource("CreateOrg.fxml"));
+			add_org_popup = FXMLLoader.load(location.getClass().getResource("CreateOrg.fxml"));
 		} catch (IOException el) {
 			el.printStackTrace();
 		}

@@ -17,6 +17,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import ui.AlertUser;
 import javafx.scene.control.Alert.AlertType;
 
 public class SignUpController {
@@ -43,14 +44,7 @@ public class SignUpController {
 		}
 		if(password_pf.getText().length() < 6) {
 			Platform.runLater(() -> {
-				Alert alert = new Alert(AlertType.WARNING);
-		    	DialogPane dialogPane = alert.getDialogPane();
-		    	dialogPane.getStylesheets().add(
-		    	   main.getClass().getResource("application.css").toExternalForm());
-		    	dialogPane.getStyleClass().add("alert");
-		    	alert.setTitle("Warning");
-		    	alert.setHeaderText("Password must be at least six characters long");
-		    	alert.showAndWait();
+				AlertUser.showAlert("Warning", "Password must be at least six characters long", AlertType.WARNING);
 			});
 		}
 		CompletableFuture.runAsync(() -> {
@@ -62,13 +56,13 @@ public class SignUpController {
 					main.showOrgSelectorDialog();
 				});
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
+				AlertUser.showAlert("Error", "Something unexpected happened", AlertType.ERROR);
 				e1.printStackTrace();
 			} catch (UsernameTakenException e1) {
-				// TODO Auto-generated catch block
+				AlertUser.showAlert("Error", "Username taken. Choose something else", AlertType.ERROR);
 				e1.printStackTrace();
 			} catch (InvalidInputException e1) {
-				// TODO Auto-generated catch block
+				AlertUser.showAlert("Error", "Please fill in fields correctly", AlertType.ERROR);
 				e1.printStackTrace();
 			}
 		});

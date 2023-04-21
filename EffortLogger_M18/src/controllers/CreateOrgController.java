@@ -23,6 +23,7 @@ import javafx.scene.control.DialogPane;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import ui.AlertUser;
 
 public class CreateOrgController implements Initializable {
 	@FXML
@@ -33,96 +34,67 @@ public class CreateOrgController implements Initializable {
 	private PasswordField confirm_code_pf;
 	@FXML
 	private TextArea desc_ta;
-	private static Main main;
-	
-	public static void setMain(Main m) {
-		main = m;
-	}
-	
+	@FXML
+	private TextField units_tf;
 	public void createOrg() {
 		String name = name_tf.getText();
 		String code = code_pf.getText();
 		String confirm_code = confirm_code_pf.getText();
 		String desc = desc_ta.getText();
-		if(!code.equals(confirm_code)) {
-				Alert alert = new Alert(AlertType.WARNING);
-		    	DialogPane dialogPane = alert.getDialogPane();
-		    	dialogPane.getStylesheets().add(
-		    	   main.getClass().getResource("application.css").toExternalForm());
-		    	dialogPane.getStyleClass().add("alert");
-		    	alert.setTitle("Warning");
-		    	alert.setHeaderText("Codes do not match");
-		    	alert.showAndWait();
+		String sunits = units_tf.getText();
+		int units;
+		try {
+			units = Integer.parseInt(sunits);
+			if(units <= 0) throw new NumberFormatException();
+		}catch(NumberFormatException e) {
+			AlertUser.showAlert("Warning", "You must enter a number of days greater than zero", AlertType.WARNING);
+			return;
 		}
-		if(code.length() < 4) {
-			Alert alert = new Alert(AlertType.WARNING);
-	    	DialogPane dialogPane = alert.getDialogPane();
-	    	dialogPane.getStylesheets().add(
-	    	   main.getClass().getResource("application.css").toExternalForm());
-	    	dialogPane.getStyleClass().add("alert");
-	    	alert.setTitle("Warning");
-	    	alert.setHeaderText("Please make your code at least 4 characters long");
-	    	alert.showAndWait();
+		if(!code.equals(confirm_code)) {
+			AlertUser.showAlert("Error", "Provided codes do not match", AlertType.ERROR);
+			return;
+		}
+		if(code.length() <= 4) {
+			AlertUser.showAlert("Warning", "Please make your code at least four characters long", AlertType.WARNING);
+			return;
 		}
 		CompletableFuture.runAsync(() -> {
 			try {
-				Org o = Main.c.createOrg(name, desc, code);
+				Org o = Main.c.createOrg(name, desc, code, units);
 				try {
 					Main.c.addUserToOrg(o, Main.current_user, code);
 				} catch (OrgNotFoundException e) {
 					System.out.println("Error in automatically assigning current user to created org");
 					e.printStackTrace();
+					return;
 				} catch (IncorrectPasswordException e) {
 					System.out.println("Error in automatically assigning current user to created org");
 					e.printStackTrace();
+					return;
 				}
 				Platform.runLater(() -> {
-					Alert alert = new Alert(AlertType.INFORMATION);
-			    	DialogPane dialogPane = alert.getDialogPane();
-			    	dialogPane.getStylesheets().add(
-			    	   main.getClass().getResource("application.css").toExternalForm());
-			    	dialogPane.getStyleClass().add("alert");
-			    	alert.setTitle("Success");
-			    	alert.setHeaderText("Org created successfully, you were added as a member of this organization");
-			    	alert.showAndWait();
+					AlertUser.showAlert("Success", "The organization was created! You were added as a member", AlertType.INFORMATION);
+					return;
 				});
 			} catch (SQLException e) {
 				Platform.runLater(() -> {
-					Alert alert = new Alert(AlertType.ERROR);
-			    	DialogPane dialogPane = alert.getDialogPane();
-			    	dialogPane.getStylesheets().add(
-			    	   main.getClass().getResource("application.css").toExternalForm());
-			    	dialogPane.getStyleClass().add("alert");
-			    	alert.setTitle("Error");
-			    	alert.setHeaderText("Something unexpected happened");
-			    	Optional<ButtonType> o = alert.showAndWait();
+					AlertUser.showAlert("Error", "Something unexpected happened", AlertType.ERROR);
 				});
 				e.printStackTrace();
+				return;
 			} catch (InvalidInputException e) {
 				Platform.runLater(() -> {
-					Alert alert = new Alert(AlertType.WARNING);
-			    	DialogPane dialogPane = alert.getDialogPane();
-			    	dialogPane.getStylesheets().add(
-			    	   main.getClass().getResource("application.css").toExternalForm());
-			    	dialogPane.getStyleClass().add("alert");
-			    	alert.setTitle("Warning");
-			    	alert.setHeaderText("Please fill in all fields");
-			    	Optional<ButtonType> o = alert.showAndWait();
+					AlertUser.showAlert("Warning", "Please fill in all fields correctly", AlertType.WARNING);
 				});
 				e.printStackTrace();
+				return;
 			} catch (OrgExistsException e) {
 
 				Platform.runLater(() -> {
-					Alert alert = new Alert(AlertType.WARNING);
-			    	DialogPane dialogPane = alert.getDialogPane();
-			    	dialogPane.getStylesheets().add(
-			    	   main.getClass().getResource("application.css").toExternalForm());
-			    	dialogPane.getStyleClass().add("alert");
-			    	alert.setTitle("Warning");
-			    	alert.setHeaderText("Name is already in use");
-			    	alert.showAndWait();
+					AlertUser.showAlert("Warning", "Please use another name, that one already exists", AlertType.WARNING);
 				});
 				e.printStackTrace();
+				return;
 			}
 		});
 	}

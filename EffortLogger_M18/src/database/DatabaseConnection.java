@@ -1,9 +1,8 @@
 package database;
 
-import java.io.IOException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import entities.Employee;
@@ -20,13 +19,6 @@ import exceptions.OrgExistsException;
 import exceptions.OrgNotFoundException;
 import exceptions.UserNotFoundException;
 import exceptions.UsernameTakenException;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 /**
  * 
@@ -84,7 +76,8 @@ public class DatabaseConnection {
 			String name = result.getString("name");
 			String description = result.getString("description");
 			float avg_velocity = result.getFloat("avg_velocity");
-			list.add(new Org(id, name, description, avg_velocity));
+			int units = result.getInt("days_per_story_point");
+			list.add(new Org(id, name, description, avg_velocity, units));
 		}
 		return list;
     }
@@ -270,7 +263,7 @@ public class DatabaseConnection {
      * @throws SQLException - something went wrong during an SQL query
      * @throws OrgExistsException - an Org with this name already exists
      */
-    public Org createOrg(String name, String description, String code) throws InvalidInputException, SQLException, OrgExistsException {
+    public Org createOrg(String name, String description, String code, int days_per_point) throws InvalidInputException, SQLException, OrgExistsException {
     	if(name == null || name.isBlank() || name.isEmpty() || description == null || code == null || code.isBlank() || code.isEmpty()) {
     		throw new InvalidInputException();
     	}
@@ -282,17 +275,18 @@ public class DatabaseConnection {
     		throw new OrgExistsException();
     	}
     	String hashed_code = Hasher.hashPassword(code);
-    	PreparedStatement create_org = connection.prepareStatement("INSERT INTO orgs (name, description, code) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+    	PreparedStatement create_org = connection.prepareStatement("INSERT INTO orgs (name, description, code, days_per_story_point) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
     	create_org.setString(1, name);
     	create_org.setString(2, description);
     	create_org.setString(3, hashed_code);
+    	create_org.setInt(4, days_per_point);
     	int rows_affected = create_org.executeUpdate();
     	int id = -1;
     	if(rows_affected == 1) {
     		ResultSet generated_keys = create_org.getGeneratedKeys();
     		if(!generated_keys.next()) throw new SQLException();
     		id = generated_keys.getInt(1);
-    		return new Org(id, name, description, -1);
+    		return new Org(id, name, description, -1, days_per_point);
     	}
     	throw new SQLException();
     }
@@ -337,13 +331,44 @@ public class DatabaseConnection {
     //*********************************************************
     //------------------UNIMPLEMENTED METHODS------------------
     //*********************************************************
-    
-    public void createUserStory(String name, String description, Date start_date, Date est_end_date,Manager e, Org o, Project p) {
+    public void createTeam() {
     	
     }
-    //assign a user story to a project
-    public void assignUserStory(Project p, UserStory u) {
+    
+    public void addEmployeeToTeam() {
     	
+    }
+    
+    public void createProject() {
+    	
+    }
+    
+    public void completeUserStory() {
+    	
+    }
+    
+    public UserStory createUserStory(String name, String description, Date start_date, Date est_end_date, Manager e, Project p, int story_points) throws InvalidInputException, SQLException {
+    	if(name == null || name.isBlank() || name.isEmpty() || description == null || description.isEmpty() || description.isBlank() || start_date == null || est_end_date == null || e == null || p == null) {
+    		throw new InvalidInputException();
+    	}
+    	//insert new project
+    	PreparedStatement s = connection.prepareStatement("INSERT INTO user_stories (name, description, start_date, est_end_date, owner_id, project_id, story_points, assigned_to_sprint) VALUES (?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+    	s.setString(1, name);
+    	s.setString(2, description);
+    	s.setDate(3, start_date);
+    	s.setDate(4, est_end_date);
+    	s.setInt(5, e.getID());
+    	s.setInt(6, p.getID());
+    	s.setInt(7, story_points);
+    	s.setBoolean(8, false);
+    	int rows_affected = s.executeUpdate();
+    	if(rows_affected != 1) {
+    		throw new SQLException();
+    	}
+		ResultSet generated_keys = s.getGeneratedKeys();
+    	if(!generated_keys.next()) throw new SQLException();
+    	int generated_user_story_id = generated_keys.getInt("id");
+    	return new UserStory(generated_user_story_id, false, name, description, start_date, est_end_date, story_points);
     }
     //assign user story to a team's backlog
     public void assignUserStory(Team t, Manager m, UserStory u) {
@@ -354,6 +379,7 @@ public class DatabaseConnection {
     	
     }
     public ArrayList<UserStory> getProductBacklog(Team t) {
+    	//get all the user stories that haven't been assigned to a sprint
     	return null;
     }
     //logs effort to the specified user story

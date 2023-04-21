@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="739.0" style="-fx-background-color: #333333;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginController">
+   <children>
+      <Button styleClass="button-primary" layoutX="384.0" layoutY="344.0" mnemonicParsing="false" onAction="#login" prefHeight="38.0" prefWidth="125.0" text="Login" />
+      <Button styleClass="button-primary" layoutX="229.0" layoutY="344.0" mnemonicParsing="false" onAction="#goToSignUpPage" prefHeight="38.0" prefWidth="125.0" style="-fx-background-color: transparent;" text="Signup" textFill="WHITE" />
+      <TextField onAction="#login" fx:id="username_tf" layoutX="229.0" layoutY="223.0" prefHeight="25.0" prefWidth="281.0" styleClass="text-input" />
+      <PasswordField onAction="#login" fx:id="password_pf" layoutX="229.0" layoutY="281.0" prefHeight="25.0" prefWidth="281.0" styleClass="text-input" />
+      <Text fill="#b5b5b5" layoutX="229.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Username" wrappingWidth="72.80335998535156" />
+      <Text fill="#b5b5b5" layoutX="229.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Password" wrappingWidth="72.80335998535156" />
+      <Text layoutX="277.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 32px;" text="Effort Logger">
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0" startX="0.5299684181574391" startY="0.35962145110410093">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.26274511218070984" green="0.5333333611488342" blue="0.5529412031173706" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.2847000062465668" green="0.7300000190734863" blue="0.36001500487327576" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Text>
+   </children>
+</AnchorPane>
