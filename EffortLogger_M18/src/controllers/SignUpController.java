@@ -12,17 +12,13 @@ import exceptions.UsernameTakenException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import ui.AlertUser;
 import javafx.scene.control.Alert.AlertType;
 
 public class SignUpController {
-	//ALL CONTROLLERS NEED THIS STATIC REFERENCE TO MAIN, OR WE WON'T BE ABLE TO NAVIGATE THROUGH PAGES
-	private static Main main = null;
 	@FXML
 	private TextField full_name_tf;
 	@FXML
@@ -33,10 +29,6 @@ public class SignUpController {
 	private PasswordField confirm_password_pf;
 	@FXML
 	private CheckBox is_manager_cb;
-	
-	public static void setMain(Main m) {
-		main = m;
-	}
 	
 	public void signUp(ActionEvent e) throws PasswordsDoNotMatchException {
 		if(!password_pf.getText().equals(confirm_password_pf.getText())) {
@@ -50,25 +42,31 @@ public class SignUpController {
 		CompletableFuture.runAsync(() -> {
 			try {
 				Employee emp = Main.c.signUp(full_name_tf.getText(), username_tf.getText(), password_pf.getText(), is_manager_cb.isSelected(), new ArrayList<>());
-				main.setCurrentUser(emp);
+				Main.setCurrentUser(emp);
 				//VERY IMPORTANT THAT YOU RUN FX METHODS ON THE FX THREAD... DO NOT TRY TO OPEN A NEW WINDOW WITHOUT USING Platform.runLater()
 				Platform.runLater(() -> {
-					main.showOrgSelectorDialog();
+					Main.showOrgSelectorDialog();
 				});
 			} catch (SQLException e1) {
-				AlertUser.showAlert("Error", "Something unexpected happened", AlertType.ERROR);
+				Platform.runLater(() -> {					
+					AlertUser.showAlert("Error", "Something unexpected happened", AlertType.ERROR);
+				});
 				e1.printStackTrace();
 			} catch (UsernameTakenException e1) {
-				AlertUser.showAlert("Error", "Username taken. Choose something else", AlertType.ERROR);
+				Platform.runLater(() -> {					
+					AlertUser.showAlert("Error", "Username taken. Choose something else", AlertType.ERROR);
+				});
 				e1.printStackTrace();
 			} catch (InvalidInputException e1) {
-				AlertUser.showAlert("Error", "Please fill in fields correctly", AlertType.ERROR);
+				Platform.runLater(() -> {					
+					AlertUser.showAlert("Error", "Please fill in fields correctly", AlertType.ERROR);
+				});
 				e1.printStackTrace();
 			}
 		});
 	}
-	public void goToSigninPage(ActionEvent e) {
-		main.goToSigninPage();
+	public void goToLoginPage(ActionEvent e) {
+		Main.goToLoginPage();
 	}
 	public void clear(ActionEvent e) {
 		full_name_tf.setText("");

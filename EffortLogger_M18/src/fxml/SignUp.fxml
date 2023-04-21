@@ -30,17 +30,17 @@
             </LinearGradient>
          </fill>
       </Text>
-      <TextField onAction="#signUp" fx:id="full_name_tf" layoutX="122.0" layoutY="186.0" prefHeight="27.0" prefWidth="226.0" stylesheets="@application.css" />
-      <TextField onAction="#signUp" fx:id="username_tf" layoutX="402.0" layoutY="184.0" prefHeight="27.0" prefWidth="226.0" stylesheets="@application.css" />
+      <TextField onAction="#signUp" fx:id="full_name_tf" layoutX="122.0" layoutY="186.0" prefHeight="27.0" prefWidth="226.0" />
+      <TextField onAction="#signUp" fx:id="username_tf" layoutX="402.0" layoutY="184.0" prefHeight="27.0" prefWidth="226.0" />
       <Text fill="#b5b5b5" layoutX="122.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Full Name" />
       <Text fill="#b5b5b5" layoutX="402.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="User Name" />
-      <PasswordField onAction="#signUp" fx:id="password_pf" layoutX="122.0" layoutY="254.0" prefHeight="27.0" prefWidth="226.0" stylesheets="@application.css" />
+      <PasswordField onAction="#signUp" fx:id="password_pf" layoutX="122.0" layoutY="254.0" prefHeight="27.0" prefWidth="226.0" />
       <Text fill="#b5b5b5" layoutX="122.0" layoutY="249.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Password" />
-      <PasswordField onAction="#signUp" fx:id="confirm_password_pf" layoutX="402.0" layoutY="255.0" prefHeight="27.0" prefWidth="226.0" stylesheets="@application.css" />
+      <PasswordField onAction="#signUp" fx:id="confirm_password_pf" layoutX="402.0" layoutY="255.0" prefHeight="27.0" prefWidth="226.0" />
       <Text fill="#b5b5b5" layoutX="402.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Confirm Password" />
       <CheckBox fx:id="is_manager_cb" layoutX="242.0" layoutY="316.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" style="-fx-font-size: 16px; -fx-text-fill: #b5b5b5;" text="Manager" />
-      <Button fx:id="signUpButton" layoutX="404.0" layoutY="393.0" mnemonicParsing="false" onAction="#signUp" prefHeight="38.0" prefWidth="125.0" styleClass="button-primary" stylesheets="@application.css" text="Sign Up" />
-      <Button layoutX="219.0" layoutY="393.0" mnemonicParsing="false" onAction="#clear" prefHeight="38.0" prefWidth="125.0" style="-fx-background-color: transparent;" styleClass="button-primary" stylesheets="@application.css" text="Clear" />
-      <Button layoutX="29.0" layoutY="471.0" mnemonicParsing="false" onAction="#goToSigninPage" prefHeight="38.0" prefWidth="125.0" style="-fx-background-color: transparent; -fx-text-fill: #ed3f32;" styleClass="button-primary" stylesheets="@application.css" text="Go Back" textFill="#ed3f32" />
+      <Button fx:id="signUpButton" layoutX="404.0" layoutY="393.0" mnemonicParsing="false" onAction="#signUp" prefHeight="38.0" prefWidth="125.0" styleClass="button-primary" text="Sign Up" />
+      <Button layoutX="219.0" layoutY="393.0" mnemonicParsing="false" onAction="#clear" prefHeight="38.0" prefWidth="125.0" style="-fx-background-color: transparent;" styleClass="button-primary" text="Clear" />
+      <Button layoutX="29.0" layoutY="471.0" mnemonicParsing="false" onAction="#goToLoginPage" prefHeight="38.0" prefWidth="125.0" style="-fx-background-color: transparent; -fx-text-fill: #ed3f32;" styleClass="button-primary" text="Go Back" textFill="#ed3f32" />
    </children>
 </AnchorPane>

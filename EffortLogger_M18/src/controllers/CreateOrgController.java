@@ -2,7 +2,6 @@ package controllers;
 
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.CompletableFuture;
 
@@ -17,9 +16,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
@@ -62,7 +58,7 @@ public class CreateOrgController implements Initializable {
 			try {
 				Org o = Main.c.createOrg(name, desc, code, units);
 				try {
-					Main.c.addUserToOrg(o, Main.current_user, code);
+					Main.c.addUserToOrg(o, Main.getCurrentUser(), code);
 				} catch (OrgNotFoundException e) {
 					System.out.println("Error in automatically assigning current user to created org");
 					e.printStackTrace();
@@ -102,13 +98,13 @@ public class CreateOrgController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
 		desc_ta.setWrapText(true);
 	}
 	
 
 	public void clear(ActionEvent e) {
 		name_tf.setText("");
+		units_tf.setText("");
 		code_pf.setText("");
 		confirm_code_pf.setText("");
 		desc_ta.setText("");

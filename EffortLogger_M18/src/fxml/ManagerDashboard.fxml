@@ -68,7 +68,7 @@
     </MenuBar>
       <ScrollPane prefHeight="508.0" prefWidth="640.0" style="-fx-background-color: #333333;">
          <content>
-            <AnchorPane prefHeight="497.0" prefWidth="621.0" style="-fx-background-color: #333333;" stylesheets="@application.css">
+            <AnchorPane prefHeight="497.0" prefWidth="621.0" style="-fx-background-color: #333333;">
                <children>
                   <Circle fill="#2577c3" layoutX="121.0" layoutY="118.0" radius="27.0" strokeType="INSIDE">
                      <stroke>

@@ -1,7 +1,6 @@
 package controllers;
 
 import java.sql.SQLException;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import application.Main;
@@ -12,17 +11,13 @@ import exceptions.UserNotFoundException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import ui.AlertUser;
+import ui.Page;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
 
 public class LoginController {
-	//ALL CONTROLLERS NEED THIS STATIC REFERENCE TO MAIN, OR WE WON'T BE ABLE TO NAVIGATE THROUGH PAGES
-	private static Main main = null;
 	private String username;
 	private String password;
 	@FXML
@@ -48,9 +43,6 @@ public class LoginController {
 			System.out.println("PASSWORD: " + password);
 	    }
 	}
-	public static void setMain(Main m) {
-		main = m;
-	}
 	
 	public void login(ActionEvent event) {
 		System.out.println("ATTEMPTING TO LOGIN");
@@ -58,28 +50,20 @@ public class LoginController {
 			try {
 				Employee e = Main.c.signIn(username_tf.getText(), password_pf.getText());
 				System.out.println("EMPLOYEE:\n" + e);
-				main.setCurrentUser(e);
+				Main.setCurrentUser(e);
 				Platform.runLater(() -> {
-//			    	Alert alert = new Alert(AlertType.INFORMATION);
-//			    	DialogPane dialogPane = alert.getDialogPane();
-//			    	dialogPane.getStylesheets().add(
-//			    	   main.getClass().getResource("application.css").toExternalForm());
-//			    	dialogPane.getStyleClass().add("alert");
-//			    	alert.setTitle("Success");
-//			    	alert.setHeaderText("Logged in successfully");
-//			    	Optional<ButtonType> o = alert.showAndWait();
-//			    	if(o.isPresent()) {
-//			    		main.goToDashboard();
-//			    	}
-		    		main.goToDashboard();
+					AlertUser.showAlert("Success", "Logged in successfully", AlertType.INFORMATION);
+		    		Main.goToDashboard();
 				});
 			} catch (SQLException e) {
-				AlertUser.showAlert("Error", "Something unexpected happened", AlertType.ERROR);
+				Platform.runLater(() -> {					
+					AlertUser.showAlert("Error", "Something unexpected happened", AlertType.ERROR);
+				});
 				e.printStackTrace();
 			} catch (UserNotFoundException e) {
-			Platform.runLater(() -> {
-				AlertUser.showAlert("Error", "User does not exist", AlertType.ERROR);
-			});
+				Platform.runLater(() -> {
+					AlertUser.showAlert("Error", "User does not exist", AlertType.ERROR);
+				});
 			} catch (InvalidInputException e) {
 				Platform.runLater(() -> {
 					AlertUser.showAlert("Warning", "Please fill in all fields", AlertType.WARNING);
@@ -94,6 +78,6 @@ public class LoginController {
 	}
 	
 	public void goToSignUpPage(ActionEvent event) {
-		main.goToSignupPage();
+		Main.goToSignUpPage();
 	}
 }
