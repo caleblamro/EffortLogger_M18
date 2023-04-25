@@ -39,10 +39,10 @@ public class Employee {
 	private String name;
 	private String username;
 	private boolean is_manager;
-	public Employee(int id, String name, String username) {
+	public Employee(int id, String name, String username, boolean is_manager) {
 		this.ID = id;
 		this.name = name;
 		this.username = username;
-		this.is_manager = false;
+		this.is_manager = is_manager;
 	}
 }

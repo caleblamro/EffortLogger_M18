@@ -7,51 +7,46 @@ import java.util.ResourceBundle;
 
 import application.Main;
 import entities.Org;
-import exceptions.IncorrectPasswordException;
+import exceptions.InvalidInputException;
 import exceptions.OrgNotFoundException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 import javafx.util.StringConverter;
 import ui.AlertUser;
 import ui.AutoComboBox;
 
-public class AddOrgController implements Initializable {
+public class SelectOrgController implements Initializable{
 	@FXML
 	ComboBox<Org> orgs_cb;
 	@FXML
-	TextField code_tf;
-	private ArrayList<Org> orgs;
+	Button submit_b;
 	
-	public void addOrg(ActionEvent e) {
-		Org o = orgs_cb.getValue();
-		try {
-			boolean res = Main.c.addUserToOrg(o, Main.getCurrentUser(), code_tf.getText());
-			if(res) {
-				AlertUser.showAlert("Success", "You are now a member of this organization", AlertType.INFORMATION);
-			}
-		} catch (SQLException e1) {
-			AlertUser.showAlert("Error", "Something unexpected happened", AlertType.ERROR);
-			e1.printStackTrace();
-		} catch (OrgNotFoundException e1) {
-			AlertUser.showAlert("Error", "The organization was not found in the database", AlertType.ERROR);
-			e1.printStackTrace();
-		} catch (IncorrectPasswordException e1) {
-			AlertUser.showAlert("Error", "Provided code was incorrect", AlertType.ERROR);
-			e1.printStackTrace();
-		}
-	}
+	private ArrayList<Org> orgs = null;
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		try {
-			orgs = Main.c.getOrgs();
+			orgs = Main.c.getOrgs(Main.getCurrentUser());
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			AlertUser.showAlert("Error", "Something unexpected happened.", AlertType.ERROR);
 			e.printStackTrace();
+			Stage s = (Stage) submit_b.getScene().getWindow();
+			s.close();
+		} catch (InvalidInputException e) {
+			AlertUser.showAlert("Error", "The current user was not valid.", AlertType.ERROR);
+			e.printStackTrace();
+			Stage s = (Stage) submit_b.getScene().getWindow();
+			s.close();
+		} catch (OrgNotFoundException e) {
+			AlertUser.showAlert("Error", "An organization with an invalid ID was one of your organizations.", AlertType.ERROR);
+			e.printStackTrace();
+			Stage s = (Stage) submit_b.getScene().getWindow();
+			s.close();
 		}
 		orgs_cb.setConverter(new StringConverter<Org>() {
 
@@ -78,7 +73,10 @@ public class AddOrgController implements Initializable {
 		}
 		AutoComboBox.autoCompleteComboBoxPlus(orgs_cb, (typed_text, item) -> item.getName().toLowerCase().contains(typed_text.toLowerCase()));
 	}
-	public void displayCreateOrg() {
-		Main.showCreateOrgDialog();
+	public void submit() {
+		Org o = orgs_cb.getValue();
+		Main.setCurrentOrg(o);
+		Stage s = (Stage) submit_b.getScene().getWindow();
+		s.close();
 	}
 }

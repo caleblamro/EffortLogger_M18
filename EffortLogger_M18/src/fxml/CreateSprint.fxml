@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="435.0" prefWidth="600.0" style="-fx-background-color: #333333;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fill="WHITE" layoutX="24.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 32px;" text="New Sprint" wrappingWidth="251.46995544433594" />
+      <Text fill="#b5b5b5" layoutX="50.0" layoutY="97.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Name" wrappingWidth="53.03130340576172" />
+      <TextField id="name_tf" fx:id="name_tf" layoutX="50.0" layoutY="104.0" prefHeight="27.0" prefWidth="214.0" />
+      <TextArea id="description_ta" fx:id="desc_ta" layoutX="50.0" layoutY="174.0" prefHeight="91.0" prefWidth="214.0" />
+      <Text fill="#b5b5b5" layoutX="50.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Description" wrappingWidth="89.69792938232422" />
+      <Text fill="#b5b5b5" layoutX="364.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Start Date" wrappingWidth="81.69805145263672" />
+      <DatePicker id="start_dp" layoutX="364.0" layoutY="110.0" />
+      <Text fill="#b5b5b5" layoutX="364.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Est End Date" wrappingWidth="108.36467742919922" />
+      <DatePicker id="end_dp" layoutX="364.0" layoutY="172.0" />
+      <Text fill="#b5b5b5" layoutX="364.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Est Story Points" wrappingWidth="133.69805145263672" />
+      <TextField id="story_points_tf" fx:id="name_tf1" layoutX="364.0" layoutY="238.0" prefHeight="27.0" prefWidth="175.0" />
+      <Button layoutX="356.0" layoutY="387.0" mnemonicParsing="false" onAction="#createOrg" prefHeight="33.0" prefWidth="125.0" styleClass="button-primary" text="Submit" />
+      <Button layoutX="118.0" layoutY="387.0" mnemonicParsing="false" onAction="#clear" prefHeight="33.0" prefWidth="125.0" style="-fx-background-color: transparent; -fx-text-fill: #b5b5b5;" styleClass="button-primary" text="Clear" />
+      <ComboBox id="stories_cb" fx:id="orgs_cb1" layoutX="212.0" layoutY="287.0" prefHeight="28.0" prefWidth="175.0" promptText="Add User Stories" />
+      <ComboBox id="team_cb" fx:id="orgs_cb11" layoutX="212.0" layoutY="330.0" prefHeight="28.0" prefWidth="175.0" promptText="Select Team" />
+   </children>
+</AnchorPane>

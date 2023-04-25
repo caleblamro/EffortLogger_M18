@@ -17,8 +17,9 @@ public class UserStory {
 	Date actual_end_date;
 	Date est_end_date = null;
 	int story_points;
+	int org_id = -1;
 	public UserStory(int project_id, boolean assigned_to_sprint, String name, String description, Date start_date,
-			Date est_end_date, int story_points) {
+			Date est_end_date, int story_points, int org) {
 		this.project_id = project_id;
 		this.assigned_to_sprint = assigned_to_sprint;
 		this.name = name;
@@ -26,6 +27,7 @@ public class UserStory {
 		this.start_date = start_date;
 		this.est_end_date = est_end_date;
 		this.story_points = story_points;
+		org_id = org;
 	}
 	public int getID() {
 		return ID;

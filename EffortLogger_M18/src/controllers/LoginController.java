@@ -48,10 +48,8 @@ public class LoginController {
 		CompletableFuture.runAsync(() -> {
 			try {
 				Employee e = Main.c.signIn(username_tf.getText(), password_pf.getText());
-				System.out.println("EMPLOYEE:\n" + e);
 				Main.setCurrentUser(e);
 				Platform.runLater(() -> {
-					AlertUser.showAlert("Success", "Logged in successfully", AlertType.INFORMATION);
 		    		Main.goToDashboard();
 				});
 			} catch (SQLException e) {

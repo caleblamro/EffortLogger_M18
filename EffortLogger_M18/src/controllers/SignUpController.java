@@ -7,7 +7,6 @@ import java.util.concurrent.CompletableFuture;
 import application.Main;
 import entities.Employee;
 import exceptions.InvalidInputException;
-import exceptions.PasswordsDoNotMatchException;
 import exceptions.UsernameTakenException;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;

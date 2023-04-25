@@ -1,4 +1,4 @@
-.button{
+.button-primary{
 	-fx-background-color: #2196f3;
     -fx-text-fill: WHITE;
 	-fx-border-radius: 0;
@@ -11,6 +11,10 @@
     -fx-border-color: #b5b5b5;
     -fx-text-fill: #b5b5b5;
 }
+.text-area {
+    -fx-padding: 0;
+    -fx-wrap-text: true;
+}
 .combo-box {
     -fx-background-color: #333333;
     -fx-border-color: #333333;
@@ -21,11 +25,12 @@
     -fx-background-color: white;
     -fx-shape: "M 0 0 L 5 5 L 10 0 Z";
 }
-
-.combo-box .arrow-button {
-    -fx-background-color: transparent;
+.combo-box .text-input {
     -fx-border-width: 0 0 2px 0;
     -fx-border-color: #b5b5b5;
+}
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
 }
 
 .combo-box .list-cell {
@@ -42,6 +47,11 @@
 .combo-box .list-view {
     -fx-background-color: #333333;
     -fx-text-fill: white;
+}
+.combo-box .list-:hover {
+    -fx-background-color: #b5b5b5;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
 }
 
 .combo-box .list-view .virtual-flow {
@@ -148,4 +158,66 @@
 .titled-pane > *.content {
   -fx-background-color: null;
   -fx-border-color: null;
+}
+.combo-box .list-cell:filled:selected {
+    -fx-text-fill: #ffffff;
+}
+.combo-box .list-cell:filled:selected:hover {
+    -fx-text-fill: #ffffff;
+}
+.date-picker {
+    -fx-background-color: transparent;
+    -fx-font-size: 16px;
+}
+
+.date-picker .arrow-button {
+    -fx-background-color: #333333 !important;
+}
+
+.date-picker .month-year-label {
+    -fx-text-fill: #ffffff;
+}
+
+.date-picker .day-cell {
+    -fx-text-fill: #121212;
+}
+
+.date-picker .today {
+    -fx-background-color: #2196f3;
+}
+
+.date-picker .today:hover {
+    -fx-background-color: #b5b5b5;
+    -fx-text-fill: #ffffff;
+}
+
+.date-picker .today:pressed {
+    -fx-background-color: #ffffff;
+}
+
+.date-picker .date-cell:hover {
+    -fx-background-color: #b5b5b5;
+}
+
+.date-picker .date-cell:disabled {
+    -fx-text-fill: #b5b5b5;
+}
+.date-picker .date-cell:disabled {
+    -fx-text-fill: #666666;
+}
+.date-picker .month-year-pane {
+    -fx-background-color: #ffffff;
+}
+.arrow-button {
+    -fx-background-color: #333333 !important;
+}
+
+.arrow-button:hover {
+    -fx-background-color: #b5b5b5 !important;
+    -fx-cursor: hand;
+}
+
+.arrow-button:pressed {
+    -fx-background-color: #ffffff;
+    -fx-cursor: hand;
 }

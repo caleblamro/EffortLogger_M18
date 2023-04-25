@@ -47,23 +47,26 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:controller="controllers.ManagerDashboardController" prefHeight="529.0" prefWidth="640.0" style="-fx-background-color: #333333;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="529.0" prefWidth="640.0" style="-fx-background-color: #333333;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ManagerDashboardController">
   <children>
     <MenuBar style="-fx-background-color: #b5b5b5;" VBox.vgrow="NEVER">
       <menus>
             <Menu mnemonicParsing="false" style="-fx-fill: #ffffff;" text="New">
                <items>
-                  <MenuItem mnemonicParsing="false" text="New Project" />
-                  <MenuItem mnemonicParsing="false" text="New Team" />
-                  <MenuItem mnemonicParsing="false" text="New User Story" />
+                  <MenuItem onAction="#showCreateProject" mnemonicParsing="false" text="New Project" />
+                  <MenuItem onAction="#showCreateTeam" mnemonicParsing="false" text="New Team" />
+                  <MenuItem onAction="#showCreateUserStory" mnemonicParsing="false" text="New User Story" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" text="Quit" />
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="|" />
-        <Menu mnemonicParsing="false" onAction="#showProjectsPage" text="Dashboard" />
+            <Menu disable="true" mnemonicParsing="false" text="|" />
+        <Menu mnemonicParsing="false" text="Dashboard" />
         <Menu mnemonicParsing="false" text="Projects" />
         <Menu mnemonicParsing="false" text="Teams" />
+        <Menu mnemonicParsing="false" text="Effort Logs" />
+        <Menu mnemonicParsing="false" text="Product Backlog" />
+            <Menu mnemonicParsing="false" text="Power Search" />
       </menus>
     </MenuBar>
       <ScrollPane prefHeight="508.0" prefWidth="640.0" style="-fx-background-color: #333333;">

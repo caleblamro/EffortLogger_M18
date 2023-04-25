@@ -1,10 +1,17 @@
 package controllers;
 
+import application.Main;
 import javafx.event.ActionEvent;
 
 public class ManagerDashboardController {
 	
-	public void showProjectsPage(ActionEvent e) {
-		System.out.println("HELLO");
+	public void showCreateTeam() {
+		Main.showCreateTeamDialog();
+	}
+	public void showCreateProject(){
+		Main.showCreateProjectDialog();
+	}
+	public void showCreateUserStory() {
+		Main.showCreateUserStoryDialog();
 	}
 }

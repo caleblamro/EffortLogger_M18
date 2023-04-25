@@ -3,12 +3,13 @@ package entities;
 import java.util.ArrayList;
 
 public class Team {
-	public Team(int iD, Org org, String name, Manager manager, ArrayList<Employee> employees) {
+	public Team(int iD, Org org, String name, String d, Employee manager, ArrayList<Employee> employees) {
 		ID = iD;
 		this.org = org;
 		this.manager = manager;
 		this.employees = employees;
 		this.name = name;
+		this.description = d;
 	}
 	public int getID() {
 		return ID;
@@ -22,10 +23,10 @@ public class Team {
 	public void setOrg(Org org) {
 		this.org = org;
 	}
-	public Manager getManager() {
+	public Employee getManager() {
 		return manager;
 	}
-	public void setManager(Manager manager) {
+	public void setManager(Employee manager) {
 		this.manager = manager;
 	}
 	public ArrayList<Employee> getEmployees() {
@@ -36,7 +37,14 @@ public class Team {
 	}
 	int ID = -1;
 	String name;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	String description;
 	Org org;
-	Manager manager;
+	Employee manager;
 	ArrayList<Employee> employees;
 }

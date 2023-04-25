@@ -2,13 +2,11 @@ package database;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.sql.Date;
 import java.util.ArrayList;
 
-
+import application.Main;
 import entities.Employee;
 import entities.EffortLog;
-import entities.Manager;
 import entities.Org;
 import entities.Project;
 import entities.Sprint;
@@ -117,14 +115,15 @@ public class DatabaseConnection {
      * @throws InvalidInputException
      * @throws SQLException 
      */
-    public Team createTeam(String team_name, Manager manager, Org current_org, ArrayList<Employee> employees) throws InvalidInputException, SQLException {
-    	if(team_name == null || team_name.isBlank() || team_name.isEmpty() || current_org == null || manager == null || employees == null || employees.size() == 0) {
+    public Team createTeam(String team_name, String description, Employee manager, Org current_org, ArrayList<Employee> employees) throws InvalidInputException, SQLException {
+    	if(team_name == null || team_name.isBlank() || team_name.isEmpty() || current_org == null || manager == null || employees == null || employees.size() == 0 || !manager.is_manager()) {
     		throw new InvalidInputException();
     	}
-    	PreparedStatement create_user = connection.prepareStatement("INSERT INTO teams (name, manager, org_id) VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+    	PreparedStatement create_user = connection.prepareStatement("INSERT INTO teams (name, manager, org_id, description) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
     	create_user.setString(1, team_name);
     	create_user.setInt(2, manager.getID());
     	create_user.setInt(3, current_org.getID());
+    	create_user.setString(4, description);
     	int rows_affected = create_user.executeUpdate();
     	if(rows_affected != 1) {
     		throw new SQLException();
@@ -133,8 +132,9 @@ public class DatabaseConnection {
     	if(!generated_keys.next()) {
     		throw new SQLException();
     	}
-    	int id = generated_keys.getInt("id");
-    	return new Team(id, current_org, team_name, manager, employees);
+    	int id = generated_keys.getInt(1);
+    	System.out.println("id: " + id);
+    	return new Team(id, current_org, team_name, description, manager, employees);
     }
     /**
      * Gets all employees from a specified org
@@ -159,11 +159,7 @@ public class DatabaseConnection {
 			String name = employee.getString("name");
 			String username = employee.getString("user_name");
 			boolean is_manager = employee.getBoolean("is_manager");
-			if(is_manager) {
-				list.add(new Manager(id, name, username));
-			} else {
-				list.add(new Employee(id, name, username));
-			}
+			list.add(new Employee(id, name, username, is_manager));
 		}
 		return list;
     }
@@ -196,11 +192,10 @@ public class DatabaseConnection {
     	int id = result.getInt("id");
     	String name = result.getString("name");
     	String user_name = result.getString("user_name");
-    	boolean is_manager = result.getBoolean("is_manager");
-    	if(is_manager) {
-			new Manager(id, name, user_name);
-		}
-    	return new Employee(id, name, user_name);
+    	int is_manager_i = result.getInt("is_manager");
+    	boolean is_manager = is_manager_i == 1 ? true : false;
+    	System.out.println("MANAGER: " + is_manager);
+    	return new Employee(id, name, user_name, is_manager);
     }
     /**
      * Creates new employee entry in employees
@@ -229,7 +224,7 @@ public class DatabaseConnection {
     	create_user.setString(1, name);
     	create_user.setString(2, username);
     	create_user.setString(3, hashed_password);
-    	create_user.setBoolean(4, is_manager);
+    	create_user.setInt(4, (is_manager ? 1 : 0));
     	int rows_affected = create_user.executeUpdate();
     	int id = -1;
     	if(rows_affected == 1) {
@@ -249,10 +244,7 @@ public class DatabaseConnection {
     			//COULD NOT ADD USER TO ORG
     		}
     	}
-    	if(is_manager) {
-			new Manager(id, name, username);
-		}
-    	return new Employee(id, name, username);
+    	return new Employee(id, name, username, is_manager);
     }
     /**
      * 
@@ -329,16 +321,17 @@ public class DatabaseConnection {
      * @param e - the manager who owns this user story
      * @param p - the project that this user story is assigned to
      * @param story_points - number of story points estimated
+     * @param t - the team that will handle the user story
      * @return - new userstory object with generated fields
      * @throws InvalidInputException
      * @throws SQLException
      */
-    public UserStory createUserStory(String name, String description, Date start_date, Date est_end_date, Manager e, Project p, int story_points) throws InvalidInputException, SQLException {
-    	if(name == null || name.isBlank() || name.isEmpty() || description == null || description.isEmpty() || description.isBlank() || start_date == null || est_end_date == null || e == null || p == null) {
+    public UserStory createUserStory(String name, String description, Date start_date, Date est_end_date, Employee e, Project p, int story_points, Team t) throws InvalidInputException, SQLException {
+    	if(name == null || name.isBlank() || name.isEmpty() || description == null || description.isEmpty() || description.isBlank() || start_date == null || est_end_date == null || e == null || p == null || t == null) {
     		throw new InvalidInputException();
     	}
     	//insert new project
-    	PreparedStatement s = connection.prepareStatement("INSERT INTO user_stories (name, description, start_date, est_end_date, owner_id, project_id, story_points, assigned_to_sprint) VALUES (?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+    	PreparedStatement s = connection.prepareStatement("INSERT INTO user_stories (name, description, start_date, est_end_date, owner_id, project_id, story_points, assigned_to_sprint, org_id) VALUES (?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
     	s.setString(1, name);
     	s.setString(2, description);
     	s.setDate(3, start_date);
@@ -347,14 +340,24 @@ public class DatabaseConnection {
     	s.setInt(6, p.getID());
     	s.setInt(7, story_points);
     	s.setBoolean(8, false);
+    	int org_id = Main.getCurrentOrg().getID();
+    	if(org_id == -1) {
+    		throw new SQLException();
+    	}
+    	s.setInt(9, org_id);
     	int rows_affected = s.executeUpdate();
     	if(rows_affected != 1) {
     		throw new SQLException();
     	}
 		ResultSet generated_keys = s.getGeneratedKeys();
     	if(!generated_keys.next()) throw new SQLException();
-    	int generated_user_story_id = generated_keys.getInt("id");
-    	return new UserStory(generated_user_story_id, false, name, description, start_date, est_end_date, story_points);
+    	int generated_user_story_id = generated_keys.getInt(1);
+    	PreparedStatement st = connection.prepareStatement("INSERT INTO team_user_stories (team_id, user_story_id) VALUES (?, ?)");
+    	st.setInt(1, t.getID());
+    	st.setInt(2, generated_user_story_id);
+    	int ra = st.executeUpdate();
+    	if(ra != 1) throw new SQLException();
+    	return new UserStory(generated_user_story_id, false, name, description, start_date, est_end_date, story_points, org_id);
     }
     /**
      * Formats java.util.Date into the database's date format
@@ -368,27 +371,59 @@ public class DatabaseConnection {
     //*********************************************************
     //------------------UNIMPLEMENTED METHODS------------------
     //*********************************************************
-    public void createTeam() {
+    
+    public void addEmployeeToTeam(Employee e, Team t) {
     	
     }
     
-    public void addEmployeeToTeam() {
-    	
+    public Project createProject(String name, Date start_date, Date est_end_date, int est_story_points, ArrayList<Team> ts) throws InvalidInputException, SQLException {
+    	if(name == null || name.isBlank() || name.isEmpty() || start_date == null || est_end_date == null) { 
+    		throw new InvalidInputException();
+    	}
+    	PreparedStatement p = connection.prepareStatement("INSERT INTO projects (name, start_date, est_end_date, story_points, org_id) VALUES (?,?,?,?,?)");
+    	p.setString(1, name);
+    	p.setDate(2, start_date);
+    	p.setDate(3, est_end_date);
+    	p.setInt(4, est_story_points);
+    	int org_id = Main.getCurrentOrg().getID();
+    	if(org_id == -1) {
+    		throw new InvalidInputException();
+    	}
+    	p.setInt(5, org_id);
+    	int rows_affected = p.executeUpdate();
+    	if(rows_affected != 1) {
+    		throw new SQLException();
+    	}
+    	return null;
     }
     
-    public void createProject() {
-    	
-    }
+    public ArrayList<UserStory> getUserStories(Org o) throws InvalidInputException, SQLException {
+    	if(o == null || o.getID() == -1) {
+    		throw new InvalidInputException();
+    	}
+    	PreparedStatement s = connection.prepareStatement("SELECT * FROM user_stories WHERE org_id = ?");
+    	s.setInt(1, o.getID());
+    	ResultSet r = s.executeQuery();
+    	ArrayList<UserStory> result = new ArrayList<>();
+    	while(r.next()) {
+    		int id = r.getInt("id");
+    		int assigned_to_sprint = r.getInt("assigned_to_sprint");
+    		String name = r.getString("name");
+    		String description = r.getString("description");
+    		Date start_date = r.getDate("start_date");
+    		Date est_end_date = r.getDate("est_end_date");
+    		int story_points = r.getInt("story_points");
+    		int org_id = r.getInt("org_id");
+        	result.add(new UserStory(id, assigned_to_sprint == 0 ? false : true, name, description, start_date, est_end_date, story_points, org_id));
+    	}
+    	return result;
+     }
     
-    public void completeUserStory() {
-    	
-    }
-    //assign user story to a team's backlog
-    public void assignUserStory(Team t, Manager m, UserStory u) {
+    public void completeUserStory(UserStory u) {
     	
     }
     //assign a user story to a sprint (will update this user story's assigned_to_sprint to true, and will set the est_end_date to the sprint's end date
-    public void assignUserStory(Sprint p, Manager m, UserStory u) {
+    public void assignUserStory(Sprint p, Employee m, UserStory u) {
     	
     }
     public ArrayList<UserStory> getProductBacklog(Team t) {
@@ -399,4 +434,103 @@ public class DatabaseConnection {
     public void logEffort(EffortLog l, Employee e, UserStory u) {
     	
     }
+    public void createSprint() {
+    	
+    }
+    public void assignUserStoryToSprint() {
+    	
+    }
+    public void completeSprint() {
+    	
+    }
+    //adds defect to effort log (also creates a defect)
+    public void addDefect() {
+    	
+    }
+    public ArrayList<Project> getProjects(Org o) throws InvalidInputException, SQLException {
+    	if(o == null || o.getID() == -1) {
+    		throw new InvalidInputException();
+    	}
+    	PreparedStatement s = connection.prepareStatement("SELECT * FROM projects WHERE org_id = ?");
+    	s.setInt(1, o.getID());
+    	ResultSet r = s.executeQuery();
+    	ArrayList<Project> result = new ArrayList<>();
+    	while(r.next()) {
+    		int id = r.getInt("project_id");
+    		String name = r.getString("name");
+    		String description = r.getString("description");
+    		Date start = r.getDate("start_date");
+    		Date end = r.getDate("est_end_date");
+    		Date actual_end = r.getDate("actual_end_date");
+    		int points = r.getInt("story_points");
+    		result.add(new Project(id, name, description, start, end, actual_end, points));
+    	}
+    	return result;
+    }
+    
+    public Employee getEmployee(int employee_id) throws InvalidInputException, SQLException, UserNotFoundException {
+    	if(employee_id == -1) throw new InvalidInputException();
+    	PreparedStatement s = connection.prepareStatement("SELECT * FROM employees WHERE id = ?");
+    	s.setInt(1, employee_id);
+    	ResultSet r = s.executeQuery();
+    	if(!r.next()) {
+    		throw new UserNotFoundException();
+    	}
+		String name = r.getString("name");
+		String username = r.getString("user_name");
+    	int is_manager_i = r.getInt("is_manager");
+    	boolean is_manager = is_manager_i == 1 ? true : false;
+    	return new Employee(employee_id, name, username, is_manager);
+		
+    }
+    
+    public Org getOrg(int org_id) throws InvalidInputException, SQLException, UserNotFoundException {
+    	if(org_id == -1) throw new InvalidInputException();
+    	PreparedStatement s = connection.prepareStatement("SELECT * FROM orgs WHERE id = ?");
+    	s.setInt(1, org_id);
+    	ResultSet r = s.executeQuery();
+    	if(!r.next()) {
+    		throw new UserNotFoundException();
+    	}
+		String name = r.getString("name");
+		String description = r.getString("description");
+		int id = r.getInt("id");
+		return new Org(id, name, description);
+		
+    }
+    
+    public ArrayList<Employee> getTeamEmployees(int team_id) throws InvalidInputException, SQLException, UserNotFoundException {
+    	if(team_id == -1) {
+    		throw new InvalidInputException();
+    	}
+    	PreparedStatement s = connection.prepareStatement("SELECT employee_id FROM team_employees WHERE team_id = ?");
+    	s.setInt(1, team_id);
+    	ResultSet r = s.executeQuery();
+    	ArrayList<Employee> emps = new ArrayList<>();
+    	while(r.next()) {
+    		int emp_id = r.getInt("employee_id");
+    		emps.add(getEmployee(emp_id));
+    	}
+    	return emps;
+    }
+
+	public ArrayList<Team> getTeams(Org o) throws InvalidInputException, SQLException, UserNotFoundException {
+		if(o == null || o.getID() == -1) {
+			throw new InvalidInputException();
+		}
+		PreparedStatement s = connection.prepareStatement("SELECT * FROM teams WHERE org_id = ?");
+		s.setInt(1, o.getID());
+		ResultSet rows = s.executeQuery();
+		ArrayList<Team> t = new ArrayList<>();
+		while(rows.next()) {
+			String name = rows.getString("name");
+			String description = rows.getString("description");
+			int id = rows.getInt("id");
+			int manager_id = rows.getInt("manager");
+			ArrayList<Employee> emps = getTeamEmployees(id);
+			Employee manager = getEmployee(manager_id);
+			t.add(new Team(id, o, name, description, manager, emps));
+		}
+		return t;
+	}
 }

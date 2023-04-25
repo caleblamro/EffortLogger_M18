@@ -50,6 +50,6 @@ public class Page {
 		Scene s = new Scene(dialog, WIDTH, HEIGHT);
 		s.getStylesheets().add(css_location.getClass().getResource("application.css").toExternalForm());
 		c.setScene(s);
-		c.show();
+		c.showAndWait();
 	}
 }

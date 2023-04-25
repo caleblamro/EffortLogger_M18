@@ -12,6 +12,7 @@ public class Project {
 	private String name;
 	private String description;
 	private Date start_date;
+	private int story_points;
 	public int getID() {
 		return ID;
 	}
@@ -48,12 +49,22 @@ public class Project {
 	public void setEndDate(Date end_date) {
 		this.end_date = end_date;
 	}
-	public Project(String name, String description, Date start_date, Date end_date) {
+	public Project(String name, String description, Date start_date, Date end_date, int s) {
 		super();
 		this.name = name;
 		this.description = description;
 		this.start_date = start_date;
 		this.end_date = end_date;
+		story_points = s;
+	}
+	public Project(int i, String name, String description, Date start_date, Date end_date, Date a, int s) {
+		ID = i;
+		this.name = name;
+		this.description = description;
+		this.start_date = start_date;
+		this.end_date = end_date;
+		actual_end_date = a;
+		story_points = s;
 	}
 	private Date actual_end_date;
 	private Date end_date;
