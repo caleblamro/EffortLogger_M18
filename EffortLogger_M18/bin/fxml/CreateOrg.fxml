@@ -18,7 +18,7 @@
       <PasswordField fx:id="code_pf" layoutX="114.0" layoutY="176.0" prefHeight="27.0" prefWidth="214.0" />
       <Text fill="#b5b5b5" layoutX="114.0" layoutY="234.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Confirm Code" wrappingWidth="107.03144073486328" />
       <PasswordField fx:id="confirm_code_pf" layoutX="114.0" layoutY="240.0" prefHeight="27.0" prefWidth="214.0" />
-      <TextArea fx:id="desc_ta" layoutX="373.0" layoutY="110.0" prefHeight="94.0" prefWidth="214.0" />
+      <TextArea styleClass="text-area" fx:id="desc_ta" layoutX="373.0" layoutY="110.0" prefHeight="94.0" prefWidth="214.0" />
       <Text fill="#b5b5b5" layoutX="373.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Description" wrappingWidth="89.69792938232422" />
       <TextField fx:id="units_tf" layoutX="373.0" layoutY="242.0" prefHeight="27.0" prefWidth="214.0" />
       <Text fill="#b5b5b5" layoutX="373.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Working days per story point" wrappingWidth="238.3646469116211" />

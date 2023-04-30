@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  Copyright (c) 2015, 2019, Gluon and/or its affiliates.
+  All rights reserved. Use is subject to license terms.
+
+  This file is available and licensed under the following license:
+
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+
+  - Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+  - Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in
+    the documentation and/or other materials provided with the distribution.
+  - Neither the name of Oracle Corporation nor the names of its
+    contributors may be used to endorse or promote products derived
+    from this software without specific prior written permission.
+
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="173.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EmployeeDashboardController">
+  <children>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="179.0" prefWidth="640.0" style="-fx-background-color: #333333;" VBox.vgrow="ALWAYS">
+      <children>
+      		<AnchorPane fx:id="loadingPane" layoutX="0.0" layoutY="25.0" prefHeight="477.0" prefWidth="650.0" style="-fx-background-color: rgba(0, 0, 0, 1);" styleClass="loading" visible="false">
+    			<VBox prefHeight="422.0" prefWidth="650.0" spacing="20.0" styleClass="center">
+        			<ProgressIndicator fx:id="progressIndicator" prefHeight="50.0" prefWidth="50.0" />
+        			<Label text="Loading..." />
+    			</VBox>
+	  </AnchorPane>
+            <Text fx:id="status_t" layoutX="14.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #ffffff; -fx-font-size: 24px;" text="Session Stopped" wrappingWidth="183.469970703125" />
+            <Button fx:id="start_b" layoutX="558.0" layoutY="37.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="68.0" styleClass="button-primary" text="Start" />
+            <Text fx:id="time_t" layoutX="253.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-fill: #ffffff; -fx-font-size: 24px; -fx-text-alignment: center;" text="0:00" wrappingWidth="134.8033447265625" />
+            <Button layoutX="452.0" layoutY="37.0" mnemonicParsing="false" onAction="#addDefect" prefHeight="27.0" prefWidth="85.0" style="-fx-background-color: transparent; -fx-border-color: #d21e1e; -fx-border-radius: 3px; -fx-text-fill: #d21e1e;" styleClass="button-primary" text="Add Defect" />
+            <ComboBox fx:id="stories_cb" layoutX="243.0" layoutY="38.0" prefHeight="25.0" prefWidth="153.0" promptText="Select User Story" />
+      </children>
+    </AnchorPane>
+  </children>
+</VBox>
