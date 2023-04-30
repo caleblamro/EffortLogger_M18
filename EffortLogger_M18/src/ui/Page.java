@@ -7,6 +7,9 @@ import fxml.Fxml;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -20,7 +23,7 @@ public class Page {
 	 * @param WIDTH - width of the scene
 	 * @param HEIGHT - height of the scene
 	 */
-	public static void moveTo(String fxml_file_name, Stage primaryStage, int WIDTH, int HEIGHT) {
+	public static Scene moveTo(String fxml_file_name, Stage primaryStage, int WIDTH, int HEIGHT) {
 		Parent signup = null;
 		try {
 			signup = FXMLLoader.load(fxml_location.getClass().getResource(fxml_file_name+".fxml"));
@@ -30,6 +33,7 @@ public class Page {
 		Scene scene = new Scene(signup, WIDTH, HEIGHT);
 		scene.getStylesheets().add(css_location.getClass().getResource("application.css").toExternalForm());
 		primaryStage.setScene(scene);
+		return scene;
 	}
 	/**
 	 * Shows a dialog box
@@ -51,5 +55,23 @@ public class Page {
 		s.getStylesheets().add(css_location.getClass().getResource("application.css").toExternalForm());
 		c.setScene(s);
 		c.showAndWait();
+	}
+	
+	public static Scene getScene(String fxml_file_name) {
+		Parent signup = null;
+		try {
+			signup = FXMLLoader.load(fxml_location.getClass().getResource(fxml_file_name+".fxml"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Scene scene = new Scene(signup);
+		scene.getStylesheets().add(css_location.getClass().getResource("application.css").toExternalForm());
+		return scene;
+	}
+	public static void setTiltedPaneContainer(VBox container, TitledPane titledPane) {
+		VBox.setVgrow(container.getChildren().get(1), Priority.ALWAYS);
+		titledPane.expandedProperty().addListener((observable, oldValue, newValue) -> {
+		    VBox.setVgrow(container.getChildren().get(1), newValue ? Priority.NEVER : Priority.ALWAYS);
+		});
 	}
 }

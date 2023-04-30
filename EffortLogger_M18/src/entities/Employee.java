@@ -32,7 +32,7 @@ public class Employee {
 	}
 	@Override
 	public String toString() {
-		return "\tID: " + getID() + "\n\tNAME: " + getName() + "\n\tIS_MANAGER: " + is_manager();
+		return name + " (id: " + ID+")";
 	}
 	
 	private int ID = -1;

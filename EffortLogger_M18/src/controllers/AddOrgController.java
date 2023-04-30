@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javafx.scene.control.Alert.AlertType;
 import javafx.util.StringConverter;
 import ui.AlertUser;
@@ -31,7 +32,7 @@ public class AddOrgController implements Initializable {
 		try {
 			boolean res = Main.c.addUserToOrg(o, Main.getCurrentUser(), code_tf.getText());
 			if(res) {
-				AlertUser.showAlert("Success", "You are now a member of this organization", AlertType.INFORMATION);
+				AlertUser.showAlert("Success", "You are now a member of this organization, click go back to sign in, or add another organization", AlertType.INFORMATION);
 			}
 		} catch (SQLException e1) {
 			AlertUser.showAlert("Error", "Something unexpected happened", AlertType.ERROR);

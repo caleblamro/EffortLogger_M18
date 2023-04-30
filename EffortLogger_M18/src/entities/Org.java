@@ -56,6 +56,7 @@ public class Org {
 		this.name = name;
 		this.description = description;
 	}
+	public int getUnits() { return days_per_point; }
 
 	@Override
 	public String toString() {

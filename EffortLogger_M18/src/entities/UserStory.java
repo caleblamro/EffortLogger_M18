@@ -1,6 +1,11 @@
 package entities;
 
+import java.sql.SQLException;
 import java.util.Date;
+
+import application.Main;
+import exceptions.InvalidInputException;
+import exceptions.UserNotFoundException;
 
 /**
  * 
@@ -8,6 +13,21 @@ import java.util.Date;
  *
  */
 public class UserStory {
+	public UserStory(int iD, int project_id, boolean assigned_to_sprint, String name, String description,
+			Date start_date, Date actual_end_date, Date est_end_date, int story_points, int org_id, int team_id) {
+		super();
+		ID = iD;
+		this.project_id = project_id;
+		this.assigned_to_sprint = assigned_to_sprint;
+		this.name = name;
+		this.description = description;
+		this.start_date = start_date;
+		this.actual_end_date = actual_end_date;
+		this.est_end_date = est_end_date;
+		this.story_points = story_points;
+		this.org_id = org_id;
+		this.team_id = team_id;
+	}
 	int ID = -1;
 	int project_id = -1;
 	boolean assigned_to_sprint = false;
@@ -18,8 +38,9 @@ public class UserStory {
 	Date est_end_date = null;
 	int story_points;
 	int org_id = -1;
+	int team_id;
 	public UserStory(int project_id, boolean assigned_to_sprint, String name, String description, Date start_date,
-			Date est_end_date, int story_points, int org) {
+			Date est_end_date, int story_points, int org, int id, int t) {
 		this.project_id = project_id;
 		this.assigned_to_sprint = assigned_to_sprint;
 		this.name = name;
@@ -28,6 +49,8 @@ public class UserStory {
 		this.est_end_date = est_end_date;
 		this.story_points = story_points;
 		org_id = org;
+		ID = id;
+		team_id = t;
 	}
 	public int getID() {
 		return ID;
@@ -82,5 +105,11 @@ public class UserStory {
 	}
 	public void setStoryPoints(int story_points) {
 		this.story_points = story_points;
+	}
+	public String toString() {
+		return name + " (id: " + ID+")";
+	}
+	public int getTeam() {
+		return team_id;
 	}
 }

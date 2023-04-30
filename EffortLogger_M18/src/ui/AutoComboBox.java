@@ -18,7 +18,8 @@ public class AutoComboBox {
 
         comboBox.setEditable(true);
         comboBox.getEditor().focusedProperty().addListener(observable -> {
-            if (comboBox.getSelectionModel().getSelectedIndex() < 0) {
+            if (comboBox.getEditor().getText().isEmpty() && comboBox.getSelectionModel().isEmpty()) {
+                // Only clear the editor's text if there is no text entered and no item selected
                 comboBox.getEditor().setText(null);
             }
         });

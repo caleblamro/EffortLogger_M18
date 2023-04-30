@@ -8,11 +8,23 @@ import java.util.Date;
  *
  */
 public class Project {
+	public Project(int iD, String name, String description, Date start_date, int story_points, int org_id,
+			Date end_date) {
+		super();
+		ID = iD;
+		this.name = name;
+		this.description = description;
+		this.start_date = start_date;
+		this.story_points = story_points;
+		this.org_id = org_id;
+		this.end_date = end_date;
+	}
 	private int ID = -1;
 	private String name;
 	private String description;
 	private Date start_date;
 	private int story_points;
+	private int org_id = -1;
 	public int getID() {
 		return ID;
 	}
@@ -65,6 +77,19 @@ public class Project {
 		this.end_date = end_date;
 		actual_end_date = a;
 		story_points = s;
+	}
+	public Project(int id2, String n, String d, Date sd, Date eed, Date ed, int sp, int oid) {
+		ID = id2;
+		name = n;
+		description = d;
+		sd = start_date;
+		end_date = eed;
+		actual_end_date = ed;
+		story_points = sp;
+		org_id = oid;
+	}
+	public String toString() {
+		return "NAME: " + name + "\nSTART: " + start_date + "\nEND: " + end_date + "\nACTUAL: " + actual_end_date;
 	}
 	private Date actual_end_date;
 	private Date end_date;

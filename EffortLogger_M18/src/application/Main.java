@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import database.DatabaseConnection;
 import entities.Employee;
 import entities.Org;
+import entities.Team;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -26,6 +27,7 @@ public class Main extends Application {
 	//should only be set from either login or sign up page
 	private static Employee current_user = null;
 	private static Org current_org = null;
+	private static Team current_team = null;
 	private static Stage primaryStage;
 	public static int WIDTH = 750;
 	public static int HEIGHT = 550;
@@ -41,13 +43,15 @@ public class Main extends Application {
 		CompletableFuture.runAsync(() -> {
 			try {	
 				c = new DatabaseConnection();
-				System.out.println("Attempting to connect to AWS RDS");
 				c.connect();
-				System.out.println("Connected");
 			}catch(SQLException e) {
+				AlertUser.showAlert("Error", "Could not connect to the database. Check your internet connection", AlertType.ERROR);
 				e.printStackTrace();
+				return;
 			} catch (ClassNotFoundException e1) {
+				AlertUser.showAlert("Error", "Something unexpected happened", AlertType.ERROR);
 				e1.printStackTrace();
+				return;
 			}
         });
 		
@@ -56,7 +60,6 @@ public class Main extends Application {
 		primaryStage.setOnCloseRequest(e -> {
 			try {
 				c.disconnect();
-				System.out.println("Disconnected");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
@@ -77,7 +80,6 @@ public class Main extends Application {
 	 * @param current_user - the current user of the application
 	 */
 	public static void setCurrentUser(Employee current_user) {
-		System.out.println("EMPLOYEE:\n" + current_user);
 		Main.current_user = current_user;
 	}
 	public static void goToSignUpPage() {
@@ -88,19 +90,24 @@ public class Main extends Application {
 	}
 	public static void goToDashboard() {
 		if(current_user == null) {
-			System.out.println("NO USER IS LOGGED IN");
+			AlertUser.showAlert("Error", "No user was detected, try restarting the program", AlertType.ERROR);
 			return;
 		}
 		Page.showDialog("SelectOrg", 299, 190, StageStyle.UTILITY);
 		while(current_org == null) {
-			AlertUser.showAlert("Error", "You must select an org", AlertType.ERROR);
+			AlertUser.showAlert("Error", "You must select an organization", AlertType.ERROR);
 			Page.showDialog("SelectOrg", 299, 190, StageStyle.UTILITY);
 		}
 		if(current_user.is_manager()) {
-			Page.moveTo("ManagerDashboard", primaryStage, 650, 450);
+			Page.moveTo("ManagerDashboard", primaryStage, 650, 447);
 		}else {
 			//navigate to the same page until employee page is made
-			Page.moveTo("ManagerDashboard", primaryStage, 650, 450);
+			Page.showDialog("SelectTeam", 299, 190, StageStyle.UTILITY);
+			while(current_team == null) {
+				AlertUser.showAlert("Error", "You must select a team", AlertType.ERROR);
+				Page.showDialog("SelectTeam", 299, 190, StageStyle.UTILITY);
+			}
+			Page.moveTo("EmployeeDashboard", primaryStage, 640, 179);
 		}
 	}
 
@@ -120,14 +127,22 @@ public class Main extends Application {
 	public static void showCreateUserStoryDialog() {
 		Page.showDialog("CreateUserStory", 600, 500, StageStyle.UTILITY);
 	}
+	public static void showCompleteUserStoriesDialog() {
+		Page.showDialog("CompleteUserStory", 524, 242, StageStyle.UTILITY);
+	}
 	public static Stage getPrimaryStage() {
 		return Main.primaryStage;
 	}
 	public static Org getCurrentOrg() {
 		return current_org;
 	}
+	public static void setCurrentTeam(Team t) {
+		current_team = t;
+	}
+	public static Team getCurrentTeam() {
+		return current_team;
+	}
 	public static void setCurrentOrg(Org o) {
-		System.out.println("ORG:\n" + o);
 		current_org = o;
 	}
 }

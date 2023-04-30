@@ -9,10 +9,14 @@ import application.Main;
 import entities.Org;
 import exceptions.InvalidInputException;
 import exceptions.OrgNotFoundException;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
@@ -24,7 +28,6 @@ public class SelectOrgController implements Initializable{
 	ComboBox<Org> orgs_cb;
 	@FXML
 	Button submit_b;
-	
 	private ArrayList<Org> orgs = null;
 
 	@Override
@@ -72,6 +75,15 @@ public class SelectOrgController implements Initializable{
 			orgs_cb.getItems().add(o);	
 		}
 		AutoComboBox.autoCompleteComboBoxPlus(orgs_cb, (typed_text, item) -> item.getName().toLowerCase().contains(typed_text.toLowerCase()));
+		orgs_cb.setValue(orgs_cb.getItems().get(0));
+
+		orgs_cb.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                // Call your method here
+                submit();
+                event.consume(); // This prevents further processing of the event
+            }
+		});
 	}
 	public void submit() {
 		Org o = orgs_cb.getValue();

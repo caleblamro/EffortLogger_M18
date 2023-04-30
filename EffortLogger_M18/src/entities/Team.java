@@ -35,6 +35,9 @@ public class Team {
 	public void setEmployees(ArrayList<Employee> employees) {
 		this.employees = employees;
 	}
+	public String getDescription() {
+		return description;
+	}
 	int ID = -1;
 	String name;
 	public String getName() {
@@ -42,6 +45,10 @@ public class Team {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	@Override
+	public String toString() {
+		return name + " (ID: "+ ID + ")";
 	}
 	String description;
 	Org org;

@@ -7,13 +7,22 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="499.0" prefWidth="600.0" style="-fx-background-color: #333333;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CreateUserStoryController">
    <children>
+   	  <AnchorPane fx:id="loadingPane" prefHeight="499.0" prefWidth="600.0" styleClass="loading" style="-fx-background-color: rgba(0, 0, 0, 1);" visible="false">
+    		<VBox styleClass="center" prefHeight="499.0" prefWidth="600.0" layoutX="0.0" layoutY="0.0" spacing="20.0">
+        		<ProgressIndicator fx:id="progressIndicator" prefWidth="50.0" prefHeight="50.0" />
+        		<Label style="-fx-text-fill: #b5b5b5;" text="Loading..." />
+    		</VBox>
+	  </AnchorPane>
       <Text fill="WHITE" layoutX="14.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 32px;" text="New User Story" wrappingWidth="251.46995544433594" />
       <Text fill="#b5b5b5" layoutX="40.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Name" wrappingWidth="53.03130340576172" />
       <TextField id="name_tf" fx:id="name_tf" layoutX="40.0" layoutY="94.0" prefHeight="27.0" prefWidth="214.0" />
-      <TextArea id="description_ta" fx:id="description_ta" layoutX="40.0" layoutY="164.0" prefHeight="156.0" prefWidth="214.0" />
+      <TextArea styleClass="text-area" id="description_ta" fx:id="description_ta" layoutX="40.0" layoutY="164.0" prefHeight="156.0" prefWidth="214.0" />
       <Text fill="#b5b5b5" layoutX="40.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Description" wrappingWidth="89.69792938232422" />
       <Text fill="#b5b5b5" layoutX="371.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 16px;" text="Start Date" wrappingWidth="81.69805145263672" />
       <DatePicker fx:id="start_dp" layoutX="371.0" layoutY="108.0" />

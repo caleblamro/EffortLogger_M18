@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import ui.AlertUser;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert.AlertType;
 
 public class LoginController {
@@ -44,7 +45,10 @@ public class LoginController {
 	}
 	
 	public void login(ActionEvent event) {
-		System.out.println("ATTEMPTING TO LOGIN");
+		Platform.runLater(() -> {
+			username_tf.getScene().setCursor(Cursor.WAIT);
+		});
+
 		CompletableFuture.runAsync(() -> {
 			try {
 				Employee e = Main.c.signIn(username_tf.getText(), password_pf.getText());
@@ -69,6 +73,10 @@ public class LoginController {
 			} catch (IncorrectPasswordException e) {
 				Platform.runLater(() -> {
 					AlertUser.showAlert("Error", "Incorrect password", AlertType.WARNING);
+				});
+			}finally {
+				Platform.runLater(() -> {
+					username_tf.getScene().setCursor(Cursor.DEFAULT);
 				});
 			}
 		});
